@@ -162,7 +162,6 @@
   <main class="shell">
     <section class="card">
       <h1>Email Templates</h1>
-      <p class="lead">A simple, cutesy, pastel-blue space for picking tones. Hover a tone to preview examples on the right.</p>
 
       <!-- Collapsible “additional templates” -->
       <details>
@@ -191,16 +190,22 @@
   <script>
     const EXAMPLES = {
       friendly: {
-        title: "Friendly tone",
-        body: "Hey there! Just checking in 😊 Wanted to follow up on our last chat and see if you need anything else from me."
+        title: "Team Member Follow-Up",
+      subject: "Subject: Checking In – Upcoming Deadline for [Project Name]",
+      message: `Hi everyone,
+I hope you’re all doing well! I just wanted to check in with our upcoming deadline for [project name] in [class name], which is due on [due date].
+I’ve completed my part of [describe your finished work here], and I noticed we still need to finish [describe remaining tasks here]. Do you have a predicted time frame for when those sections might be done so that other members have time to review everything before submission?
+Please let me know if there’s anything I can do to help move things along or support your parts.
+Sincerely,
+[Your Name]`
       },
       serious: {
         title: "Serious tone",
-        body: "Hello, I’m writing to address an important matter regarding our previous correspondence. Please review the attached notes at your earliest convenience."
+        body: ""
       },
       business: {
         title: "Business-Professional tone",
-        body: "Dear Team, Following up on our meeting, I’ve summarized the next steps below. Kindly confirm your availability for the proposed timeline."
+        body: ""
       }
     };
 
@@ -213,7 +218,7 @@
         preview.innerHTML = `
           <h3>${data.title}</h3>
           <p>${data.body}</p>
-          <p class="muted">Tip: these are placeholders. We’ll swap in your actual templates later without changing pages.</p>
+         
         `;
       });
     });
