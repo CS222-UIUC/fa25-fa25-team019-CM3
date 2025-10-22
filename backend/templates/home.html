@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Email Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --pastel-blue: #eaf6ff;
+      --blue-100: #d7efff;
+      --blue-200: #c4e7ff;
+      --blue-300: #a7dbff;
+      --ink: #1f2a44;
+      --white: #ffffff;
+      --border: #d9e2ec;
+      --shadow: 0 8px 24px rgba(31, 42, 68, 0.08);
+      --radius: 16px;
+    }
+
+    body {
+      background: linear-gradient(180deg, var(--pastel-blue), var(--blue-100));
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+    }
+
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      width: 600px;
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    textarea, select, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 15px;
+    }
+
+    button {
+      background: var(--blue-300);
+      border: none;
+      color: var(--ink);
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .result {
+      margin-top: 20px;
+      background: var(--blue-100);
+      border-radius: 10px;
+      padding: 15px;
+      white-space: pre-wrap;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      padding: 14px 18px;
+      background: var(--blue-200);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .tab {
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--white);
+      padding: 8px 12px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      font-weight: 600;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .tab:hover { transform: translateY(-1px); }
+    .tab.active { outline: 2px solid var(--blue-300); }
+  </style>
+</head>
+<body>
+  <nav class="tabs">
+    <a class="tab" href="{{ url_for('email_templates') }}">Email Templates</a>
+  </nav>
+
+  <div style="display:flex; justify-content:center; margin-top:50px;">
+    <div class="card">
+      <h1>Email Generator</h1>
+      <form method="POST">
+        <textarea name="prompt" rows="4" placeholder="Type your email request here..."></textarea>
+        <select name="tone">
+          <option value="Friendly">Friendly</option>
+          <option value="Serious">Serious</option>
+          <option value="Business">Business-Professional</option>
+        </select>
+        <button type="submit">Generate Email</button>
+      </form>
+
+      {% if result %}
+      <div class="result">
+        <h3>Generated Email:</h3>
+        <p>{{ result }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
