@@ -16,8 +16,8 @@ def write_email():
         return jsonify({"error": "Missing required fields"}), 400
 
     # Example: send email using Gmail SMTP
-    sender_email = "your_email@gmail.com"
-    sender_password = "your_app_password"  # use App Password for security
+    sender_email = "user_email@gmail.com"
+    sender_password = "user_app_password"  # use App Password for security
 
     msg = MIMEText(body)
     msg["Subject"] = subject
@@ -34,3 +34,4 @@ def write_email():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
