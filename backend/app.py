@@ -19,6 +19,16 @@ def home():
             )
             email_output = response["choices"][0]["message"]["content"]
     return render_template("home.html", result=email_output)
+from flask import Flask, render_template, url_for
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return f"""
+      <h1>Home</h1>
+      <p><a href="{url_for('email_templates')}">Email Templates</a></p>
+    """
 
 @app.route("/email-templates")
 def email_templates():
