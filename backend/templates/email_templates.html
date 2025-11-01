@@ -49,7 +49,6 @@
     .tab:hover { transform: translateY(-1px); }
     .tab.active { outline: 2px solid var(--blue-300); }
 
-    /* Card shell */
     .shell {
       max-width: 980px;
       margin: 28px auto;
@@ -108,7 +107,7 @@
       border-radius: 12px;
       padding: 10px 12px;
       font-weight: 600;
-      cursor: default;
+      cursor: pointer;
       transition: transform 120ms ease, box-shadow 120ms ease;
       box-shadow: var(--shadow);
     }
@@ -124,7 +123,8 @@
       min-height: 140px;
       box-shadow: var(--shadow);
       position: relative;
-      overflow: hidden;
+      overflow: auto;
+      line-height: 1.5;
     }
     .preview h3 {
       margin: 0 0 8px;
@@ -148,6 +148,16 @@
       box-shadow: var(--shadow);
     }
 
+    [contenteditable="true"] {
+      background-color: #f0faff;
+      border-radius: 6px;
+      padding: 2px 4px;
+      outline: none;
+    }
+    [contenteditable="true"]:focus {
+      background-color: #d9f0ff;
+    }
+
     @media (max-width: 720px) {
       .grid { grid-template-columns: 1fr; }
     }
@@ -163,22 +173,20 @@
     <section class="card">
       <h1>Email Templates</h1>
 
-      <!-- Collapsible “additional templates” -->
       <details>
         <summary><span class="chev">▶</span> Click here for additional templates</summary>
 
         <div class="grid">
-          <!-- Left list of tones -->
           <div class="tones">
             <div class="tone" data-tone="friendly">Friendly</div>
             <div class="tone" data-tone="serious">Serious</div>
             <div class="tone" data-tone="business">Business-Professional</div>
+            <div class="tone" data-tone="reminder">Reminder</div>
           </div>
 
-          <!-- Right hover preview panel (stays on the same page) -->
           <div class="preview" id="preview">
             <h3>Hover a tone</h3>
-            <p class="muted">When you hover over a tone on the left, a sample will appear here. We’ll plug in your real templates later.</p>
+            <p class="muted">When you hover over a tone on the left, an editable email sample will appear here.</p>
           </div>
         </div>
       </details>
@@ -190,22 +198,53 @@
   <script>
     const EXAMPLES = {
       friendly: {
-        title: "Team Member Follow-Up",
-      title: "Subject: Checking In – Upcoming Deadline for [Project Name]",
-      body: `Hi everyone,
-I hope you’re all doing well! I just wanted to check in with our upcoming deadline for [project name] in [class name], which is due on [due date].
-I’ve completed my part of [describe your finished work here], and I noticed we still need to finish [describe remaining tasks here]. Do you have a predicted time frame for when those sections might be done so that other members have time to review everything before submission?
-Please let me know if there’s anything I can do to help move things along or support your parts.
-Sincerely,
-[Your Name]`
+        title: "Friendly Team Check-In",
+        body: `Hi everyone,<br><br>
+I hope you’re all doing well! I just wanted to check in with our upcoming deadline for 
+<span contenteditable="true">[project name]</span> in 
+<span contenteditable="true">[class name]</span>, which is due on 
+<span contenteditable="true">[due date]</span>.<br><br>
+I’ve completed my part of 
+<span contenteditable="true">[describe your finished work here]</span>, and I noticed we still need to finish 
+<span contenteditable="true">[describe remaining tasks here]</span>.<br><br>
+Please let me know if there’s anything I can do to help.<br><br>
+Sincerely,<br>
+<span contenteditable="true">[Your Name]</span>`
       },
       serious: {
-        title: "Serious tone",
-        body: ""
+        title: "Formal Project Follow-Up",
+        body: `Hello team,<br><br>
+This is a reminder regarding our upcoming submission for 
+<span contenteditable="true">[project name]</span> in 
+<span contenteditable="true">[course name]</span>, due on 
+<span contenteditable="true">[due date]</span>.<br><br>
+Please ensure all remaining sections are completed by 
+<span contenteditable="true">[insert target date]</span> 
+to allow sufficient time for review and compilation.<br><br>
+Best regards,<br>
+<span contenteditable="true">[Your Name]</span>`
       },
       business: {
-        title: "Business-Professional tone",
-        body: ""
+        title: "Business-Professional Update",
+        body: `Dear Team,<br><br>
+I wanted to provide an update regarding our ongoing project 
+<span contenteditable="true">[project name]</span>. We have successfully completed 
+<span contenteditable="true">[completed sections]</span> and will now proceed with 
+<span contenteditable="true">[next steps]</span>.<br><br>
+Please confirm your availability for our next meeting on 
+<span contenteditable="true">[date/time]</span>.<br><br>
+Sincerely,<br>
+<span contenteditable="true">[Your Name]</span>`
+      },
+      reminder: {
+        title: "Friendly Reminder Email",
+        body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
+Just a quick reminder about 
+<span contenteditable="true">[event/task]</span> scheduled for 
+<span contenteditable="true">[date/time]</span>.<br><br>
+If you need any help or want to reschedule, please let me know.<br><br>
+Best,<br>
+<span contenteditable="true">[Your Name]</span>`
       }
     };
 
@@ -217,10 +256,20 @@ Sincerely,
         if (!data) return;
         preview.innerHTML = `
           <h3>${data.title}</h3>
-          <p>${data.body}</p>
-         
+          <div>${data.body}</div>
         `;
+        // Restore saved version if it exists
+        const saved = localStorage.getItem(key + "_template");
+        if (saved) preview.innerHTML = saved;
       });
+    });
+
+    // Save edits to localStorage when typing
+    preview.addEventListener("input", () => {
+      const activeTone = document.querySelector(".tone:hover");
+      if (activeTone) {
+        localStorage.setItem(activeTone.dataset.tone + "_template", preview.innerHTML);
+      }
     });
   </script>
 </body>
