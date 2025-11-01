@@ -157,6 +157,55 @@
     [contenteditable="true"]:focus {
       background-color: #d9f0ff;
     }
+ .email-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.email-fields label {
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.email-fields input {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 14px;
+  box-shadow: var(--shadow);
+}
+
+.email-fields input:focus {
+  outline: 2px solid var(--blue-300);
+}
+
+.ccbcc-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--blue-200);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition: background 0.2s ease;
+}
+
+.ccbcc-toggle:hover {
+  background: var(--blue-300);
+}
+.hidden {
+  display: none;
+}
 
     @media (max-width: 720px) {
       .grid { grid-template-columns: 1fr; }
@@ -256,13 +305,44 @@ Best,<br>
         if (!data) return;
         preview.innerHTML = `
           <h3>${data.title}</h3>
-          <div>${data.body}</div>
+       <div class="email-fields">
+  <label>To:</label>
+  <input type="text" placeholder="recipient@example.com">
+
+  <button class="ccbcc-toggle">+Cc/Bcc</button>
+
+  <div id="extra-fields" class="hidden">
+    <label>Cc:</label>
+    <input type="text" placeholder="cc@example.com">
+    <label>Bcc:</label>
+    <input type="text" placeholder="bcc@example.com">
+  </div>
+
+  <!-- Subject always visible -->
+  <label>Subject:</label>
+  <input type="text" placeholder="Enter subject here">
+</div>
+        <div>${data.body}</div>
         `;
-        // Restore saved version if it exists
-        const saved = localStorage.getItem(key + "_template");
-        if (saved) preview.innerHTML = saved;
-      });
+ // Restore saved version if it exists
+      const saved = localStorage.getItem(key + "_template");
+      if (saved) {
+        preview.innerHTML = saved;
+      } else {
+        // Setup toggle only if no saved version yet
+        const toggleBtn = preview.querySelector(".ccbcc-toggle");
+        const extraFields = preview.querySelector("#extra-fields");
+        toggleBtn.addEventListener("click", () => {
+          extraFields.classList.toggle("hidden");
+          toggleBtn.textContent = extraFields.classList.contains("hidden")
+            ? "+Cc/Bcc"
+            : "Hide Cc/Bcc";
+        });
+      }
     });
+  });
+
+    
 
     // Save edits to localStorage when typing
     preview.addEventListener("input", () => {
