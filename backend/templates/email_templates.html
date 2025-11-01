@@ -231,6 +231,7 @@
             <div class="tone" data-tone="serious">Serious</div>
             <div class="tone" data-tone="business">Business-Professional</div>
             <div class="tone" data-tone="reminder">Reminder</div>
+            <div class="tone" data-tone="apology">Apology / Follow-Up</div>
           </div>
 
           <div class="preview" id="preview">
@@ -294,7 +295,18 @@ Just a quick reminder about
 If you need any help or want to reschedule, please let me know.<br><br>
 Best,<br>
 <span contenteditable="true">[Your Name]</span>`
-      }
+      },
+apology: {
+  title: "Apology Email",
+  body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
+I wanted to follow up and apologize for <span contenteditable="true">[specific issue or delay]</span>. 
+It was never my intention to cause any inconvenience, and I truly appreciate your understanding.<br><br>
+I’ll make sure to <span contenteditable="true">[describe corrective action]</span> moving forward.<br><br>
+Thank you again for your patience and for bringing this to my attention.<br><br>
+Sincerely,<br>
+<span contenteditable="true">[Your Name]</span>`
+}
+      
     };
 
     const preview = document.getElementById("preview");
@@ -324,7 +336,7 @@ Best,<br>
 </div>
         <div>${data.body}</div>
         `;
- // Restore saved version if it exists
+      // Restore saved version if it exists
       const saved = localStorage.getItem(key + "_template");
       if (saved) {
         preview.innerHTML = saved;
