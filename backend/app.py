@@ -1,6 +1,8 @@
 import os
 import requests # run pip install requests inside ur venv
-from flask import Flask, render_template, url_for, requestpp = Flask(__name__)
+from flask import Flask, render_template, url_for, request
+
+app = Flask(__name__)
 
 #used AI to help with the generate_email function
 #now the result that I get must be the result of generative ai thing and can we use gemini because there is no paywall

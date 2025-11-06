@@ -149,10 +149,12 @@
     }
 
     [contenteditable="true"] {
-      background-color: #f0faff;
-      border-radius: 6px;
-      padding: 2px 4px;
-      outline: none;
+  background-color: #f0faff;
+  border-radius: 6px;
+  padding: 4px 6px;           
+  min-width: 80px;            
+  display: inline-block;
+  font-size: 15px; 
     }
     [contenteditable="true"]:focus {
       background-color: #d9f0ff;
@@ -206,6 +208,19 @@
 .hidden {
   display: none;
 }
+
+    #copy-btn {
+      margin-top: 10px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background 0.3s ease;
+    }
+    #copy-btn:hover { background-color: #357abd; }
 
     @media (max-width: 720px) {
       .grid { grid-template-columns: 1fr; }
@@ -305,7 +320,7 @@ Your support and effort really made a difference in <span contenteditable="true"
 Looking forward to working together again soon!<br><br>
 Best,<br>
 <span contenteditable="true">[Your Name]</span>`
-}
+},
 apology: {
   title: "Apology Email",
   body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
@@ -344,7 +359,8 @@ Sincerely,<br>
   <label>Subject:</label>
   <input type="text" placeholder="Enter subject here">
 </div>
-        <div>${data.body}</div>
+        <div id="email-body">${data.body}</div>
+         <button id="copy-btn">Copy Email</button>
         `;
       // Restore saved version if it exists
       const saved = localStorage.getItem(key + "_template");
@@ -373,6 +389,35 @@ Sincerely,<br>
         localStorage.setItem(activeTone.dataset.tone + "_template", preview.innerHTML);
       }
     });
+
+  
+
+preview.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "copy-btn") {
+    const bodyDiv = preview.querySelector("#email-body"); 
+    if (!bodyDiv) return;
+    const content = bodyDiv.innerText; 
+    navigator.clipboard.writeText(content).then(() => {
+      e.target.textContent = "Copied!";
+      e.target.style.backgroundColor = "#4ade80"; 
+      setTimeout(() => {
+        e.target.textContent = "Copy Email";
+        e.target.style.backgroundColor = "#4a90e2";
+      }, 1500);
+    });
+  }
+});
+
+preview.addEventListener("focusin", (e) => {
+  if (e.target.hasAttribute("contenteditable")) {
+    const text = e.target.innerText.trim();
+    if (text.startsWith("[") && text.endsWith("]")) {
+      e.target.innerText = "";
+    }
+  }
+});
+
+
   </script>
 </body>
 </html>
