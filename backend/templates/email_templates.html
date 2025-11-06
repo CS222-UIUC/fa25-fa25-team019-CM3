@@ -21,7 +21,7 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       background: linear-gradient(180deg, var(--pastel-blue), var(--blue-100));
       color: var(--ink);
     }
@@ -44,7 +44,7 @@
       border-radius: 10px;
       box-shadow: var(--shadow);
       font-weight: 600;
-      transition: transform 120ms ease, box-shadow 120ms ease;
+      transition: transform 120ms ease;
     }
     .tab:hover { transform: translateY(-1px); }
     .tab.active { outline: 2px solid var(--blue-300); }
@@ -61,34 +61,29 @@
       box-shadow: var(--shadow);
       padding: 20px;
     }
-    h1 {
-      margin: 0 0 10px;
-      font-size: 28px;
-      letter-spacing: 0.3px;
-    }
-    p.lead {
-      margin: 0 0 18px;
-      color: var(--ink-soft);
-    }
+
     details {
       background: var(--pastel-blue);
       border: 1px dashed var(--blue-300);
       border-radius: 12px;
-      padding: 14px;
+      padding: 0;
+      overflow: hidden;
     }
-    details + details { margin-top: 12px; }
     summary {
-      cursor: pointer;
+      padding: 14px;
       font-weight: 700;
-      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     summary::-webkit-details-marker { display: none; }
-    .chev {
-      display: inline-block;
-      transition: transform 180ms ease;
-      margin-right: 6px;
-    }
+    details[open] summary { border-bottom: 1px dashed var(--blue-300); }
+
+    .chev { transition: transform 180ms ease; }
     details[open] .chev { transform: rotate(90deg); }
+
+    .details-body { padding: 14px; }
 
     .grid {
       display: grid;
@@ -96,11 +91,9 @@
       gap: 16px;
       margin-top: 14px;
     }
-    .tones {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+
+    .tones { display: flex; flex-direction: column; gap: 10px; }
+
     .tone {
       background: var(--white);
       border: 1px solid var(--border);
@@ -108,125 +101,68 @@
       padding: 10px 12px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 120ms ease, box-shadow 120ms ease;
       box-shadow: var(--shadow);
+      transition: transform 120ms ease;
     }
-    .tone:hover {
-      transform: translateY(-1px);
-    }
+    .tone:hover { transform: translateY(-1px); }
 
     .preview {
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 14px;
-      min-height: 140px;
+      min-height: 160px;
       box-shadow: var(--shadow);
       position: relative;
-      overflow: auto;
-      line-height: 1.5;
-    }
-    .preview h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-    .muted {
-      color: var(--ink-soft);
-      font-size: 13px;
+      line-height: 1.55;
     }
 
-    .back {
-      margin-top: 16px;
-      display: inline-block;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 8px 12px;
-      border-radius: 10px;
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 12px;
+      border-radius: 8px;
       background: var(--blue-200);
-      color: var(--ink);
       border: 1px solid var(--border);
-      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
     }
 
+    /* ✅ Placeholder behavior for editable areas */
+    [contenteditable="true"][data-placeholder]:empty:before {
+      content: attr(data-placeholder);
+      color: #94a3b8;
+      pointer-events: none;
+    }
     [contenteditable="true"] {
-  background-color: #f0faff;
-  border-radius: 6px;
-  padding: 4px 6px;           
-  min-width: 80px;            
-  display: inline-block;
-  font-size: 15px; 
+      border-radius: 6px;
+      padding: 2px 4px;
+      transition: 0.18s;
     }
     [contenteditable="true"]:focus {
       background-color: #d9f0ff;
+      outline: 1px dashed var(--blue-300);
     }
- .email-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 12px;
-  position: relative;
-}
 
-.email-fields label {
-  font-weight: 600;
-  color: var(--ink-soft);
-  font-size: 14px;
-}
-
-.email-fields input {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 6px 8px;
-  font-family: inherit;
-  font-size: 14px;
-  box-shadow: var(--shadow);
-}
-
-.email-fields input:focus {
-  outline: 2px solid var(--blue-300);
-}
-
-.ccbcc-toggle {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: var(--blue-200);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 4px 8px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--ink);
-  box-shadow: var(--shadow);
-  transition: background 0.2s ease;
-}
-
-.ccbcc-toggle:hover {
-  background: var(--blue-300);
-}
-.hidden {
-  display: none;
-}
-
-    #copy-btn {
-      margin-top: 10px;
-      background-color: #4a90e2;
-      color: white;
-      border: none;
-      border-radius: 6px;
+    .back {
+      display: inline-block;
+      margin-top: 16px;
+      text-decoration: none;
+      background: var(--blue-200);
       padding: 8px 12px;
-      cursor: pointer;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-weight: 600;
+      color: var(--ink);
       box-shadow: var(--shadow);
-      transition: background 0.3s ease;
     }
-    #copy-btn:hover { background-color: #357abd; }
 
-    @media (max-width: 720px) {
-      .grid { grid-template-columns: 1fr; }
-    }
+    @media(max-width:720px){ .grid{grid-template-columns:1fr;} }
   </style>
 </head>
+
 <body>
   <nav class="tabs">
     <a class="tab" href="{{ url_for('home') }}">Home</a>
@@ -237,22 +173,25 @@
     <section class="card">
       <h1>Email Templates</h1>
 
-      <details>
+      <details open>
         <summary><span class="chev">▶</span> Click here for additional templates</summary>
 
-        <div class="grid">
-          <div class="tones">
-            <div class="tone" data-tone="friendly">Friendly</div>
-            <div class="tone" data-tone="serious">Serious</div>
-            <div class="tone" data-tone="business">Business-Professional</div>
-            <div class="tone" data-tone="reminder">Reminder</div>
-            <div class="tone" data-tone="thankyou">Thank You / Appreciation</div>
-            <div class="tone" data-tone="apology">Apology / Follow-Up</div>
-          </div>
+        <div class="details-body">
+          <div class="grid">
 
-          <div class="preview" id="preview">
-            <h3>Hover a tone</h3>
-            <p class="muted">When you hover over a tone on the left, an editable email sample will appear here.</p>
+            <div class="tones">
+              <div class="tone" data-tone="friendly">Friendly</div>
+              <div class="tone" data-tone="serious">Serious</div>
+              <div class="tone" data-tone="business">Business-Professional</div>
+              <div class="tone" data-tone="reminder">Reminder</div>
+            </div>
+
+            <div class="preview" id="preview">
+              <h3>Hover a tone</h3>
+              <p>Hover a tone to display and edit the email.</p>
+              <button class="copy-btn" id="copyBtn" style="display:none;">Copy</button>
+            </div>
+
           </div>
         </div>
       </details>
@@ -267,157 +206,72 @@
         title: "Friendly Team Check-In",
         body: `Hi everyone,<br><br>
 I hope you’re all doing well! I just wanted to check in with our upcoming deadline for 
-<span contenteditable="true">[project name]</span> in 
-<span contenteditable="true">[class name]</span>, which will be due on 
-<span contenteditable="true">[due date]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[project name]"></span> in 
+<span contenteditable="true" data-placeholder="[class name]"></span>, which is due on 
+<span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
 I’ve completed my part of 
-<span contenteditable="true">[describe your finished work here]</span>, and I noticed we still need to finish 
-<span contenteditable="true">[describe remaining tasks here]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[finished work]"></span>, and I noticed we still need to finish 
+<span contenteditable="true" data-placeholder="[remaining tasks]"></span>.<br><br>
 Please let me know if there’s anything I can do to help.<br><br>
 Sincerely,<br>
-<span contenteditable="true">[Your Name]</span>`
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
       },
+
       serious: {
         title: "Formal Project Follow-Up",
         body: `Hello team,<br><br>
 This is a reminder regarding our upcoming submission for 
-<span contenteditable="true">[project name]</span> in 
-<span contenteditable="true">[course name]</span>, due on 
-<span contenteditable="true">[due date]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[project name]"></span> in 
+<span contenteditable="true" data-placeholder="[course name]"></span>, due on 
+<span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
 Please ensure all remaining sections are completed by 
-<span contenteditable="true">[insert target date]</span> 
-to allow sufficient time for review and compilation.<br><br>
+<span contenteditable="true" data-placeholder="[target date]"></span>.<br><br>
 Best regards,<br>
-<span contenteditable="true">[Your Name]</span>`
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
       },
+
       business: {
         title: "Business-Professional Update",
         body: `Dear Team,<br><br>
 I wanted to provide an update regarding our ongoing project 
-<span contenteditable="true">[project name]</span>. We have successfully completed 
-<span contenteditable="true">[completed sections]</span> and will now proceed with 
-<span contenteditable="true">[next steps]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[project name]"></span>. We have successfully completed 
+<span contenteditable="true" data-placeholder="[completed sections]"></span> and will now proceed with 
+<span contenteditable="true" data-placeholder="[next steps]"></span>.<br><br>
 Please confirm your availability for our next meeting on 
-<span contenteditable="true">[date/time]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
 Sincerely,<br>
-<span contenteditable="true">[Your Name]</span>`
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
       },
+
       reminder: {
         title: "Friendly Reminder Email",
-        body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
+        body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
 Just a quick reminder about 
-<span contenteditable="true">[event/task]</span> scheduled for 
-<span contenteditable="true">[date/time]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[event/task]"></span> scheduled for 
+<span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
 If you need any help or want to reschedule, please let me know.<br><br>
 Best,<br>
-<span contenteditable="true">[Your Name]</span>`
-      },
-      thankyou: {
-  title: "Thank You / Appreciation Email",
-  body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
-I just wanted to take a moment to thank you for <span contenteditable="true">[specific help, contribution, or collaboration]</span>.<br><br>
-Your support and effort really made a difference in <span contenteditable="true">[project/event name]</span>, and I appreciate the time you took to help out.<br><br>
-Looking forward to working together again soon!<br><br>
-Best,<br>
-<span contenteditable="true">[Your Name]</span>`
-},
-apology: {
-  title: "Apology Email",
-  body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
-I wanted to follow up and apologize for <span contenteditable="true">[specific issue or delay]</span>. 
-It was never my intention to cause any inconvenience, and I truly appreciate your understanding.<br><br>
-I’ll make sure to <span contenteditable="true">[describe corrective action]</span> moving forward.<br><br>
-Thank you again for your patience and for bringing this to my attention.<br><br>
-Sincerely,<br>
-<span contenteditable="true">[Your Name]</span>`
-}
-      
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+      }
     };
 
     const preview = document.getElementById("preview");
+    const copyBtn = document.getElementById("copyBtn");
+
     document.querySelectorAll(".tone").forEach(el => {
       el.addEventListener("mouseenter", () => {
-        const key = el.dataset.tone;
-        const data = EXAMPLES[key];
-        if (!data) return;
-        preview.innerHTML = `
-          <h3>${data.title}</h3>
-       <div class="email-fields">
-  <label>To:</label>
-  <input type="text" placeholder="recipient@example.com">
-
-  <button class="ccbcc-toggle">+Cc/Bcc</button>
-
-  <div id="extra-fields" class="hidden">
-    <label>Cc:</label>
-    <input type="text" placeholder="cc@example.com">
-    <label>Bcc:</label>
-    <input type="text" placeholder="bcc@example.com">
-  </div>
-
-  <!-- Subject always visible -->
-  <label>Subject:</label>
-  <input type="text" placeholder="Enter subject here">
-</div>
-        <div id="email-body">${data.body}</div>
-         <button id="copy-btn">Copy Email</button>
-        `;
-      // Restore saved version if it exists
-      const saved = localStorage.getItem(key + "_template");
-      if (saved) {
-        preview.innerHTML = saved;
-      } else {
-        // Setup toggle only if no saved version yet
-        const toggleBtn = preview.querySelector(".ccbcc-toggle");
-        const extraFields = preview.querySelector("#extra-fields");
-        toggleBtn.addEventListener("click", () => {
-          extraFields.classList.toggle("hidden");
-          toggleBtn.textContent = extraFields.classList.contains("hidden")
-            ? "+Cc/Bcc"
-            : "Hide Cc/Bcc";
-        });
-      }
-    });
-  });
-
-    
-
-    // Save edits to localStorage when typing
-    preview.addEventListener("input", () => {
-      const activeTone = document.querySelector(".tone:hover");
-      if (activeTone) {
-        localStorage.setItem(activeTone.dataset.tone + "_template", preview.innerHTML);
-      }
+        const data = EXAMPLES[el.dataset.tone];
+        preview.innerHTML = `<h3>${data.title}</h3><div>${data.body}</div>`;
+        preview.appendChild(copyBtn);
+        copyBtn.style.display = "block";
+      });
     });
 
-  
-
-preview.addEventListener("click", (e) => {
-  if (e.target && e.target.id === "copy-btn") {
-    const bodyDiv = preview.querySelector("#email-body"); 
-    if (!bodyDiv) return;
-    const content = bodyDiv.innerText; 
-    navigator.clipboard.writeText(content).then(() => {
-      e.target.textContent = "Copied!";
-      e.target.style.backgroundColor = "#4ade80"; 
-      setTimeout(() => {
-        e.target.textContent = "Copy Email";
-        e.target.style.backgroundColor = "#4a90e2";
-      }, 1500);
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(preview.innerText);
+      copyBtn.innerText = "Copied!";
+      setTimeout(()=>copyBtn.innerText="Copy",800);
     });
-  }
-});
-
-preview.addEventListener("focusin", (e) => {
-  if (e.target.hasAttribute("contenteditable")) {
-    const text = e.target.innerText.trim();
-    if (text.startsWith("[") && text.endsWith("]")) {
-      e.target.innerText = "";
-    }
-  }
-});
-
-
   </script>
 </body>
 </html>
