@@ -21,7 +21,7 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       background: linear-gradient(180deg, var(--pastel-blue), var(--blue-100));
       color: var(--ink);
     }
@@ -44,7 +44,7 @@
       border-radius: 10px;
       box-shadow: var(--shadow);
       font-weight: 600;
-      transition: transform 120ms ease, box-shadow 120ms ease;
+      transition: transform 120ms ease;
     }
     .tab:hover { transform: translateY(-1px); }
     .tab.active { outline: 2px solid var(--blue-300); }
@@ -61,34 +61,29 @@
       box-shadow: var(--shadow);
       padding: 20px;
     }
-    h1 {
-      margin: 0 0 10px;
-      font-size: 28px;
-      letter-spacing: 0.3px;
-    }
-    p.lead {
-      margin: 0 0 18px;
-      color: var(--ink-soft);
-    }
+
     details {
       background: var(--pastel-blue);
       border: 1px dashed var(--blue-300);
       border-radius: 12px;
-      padding: 14px;
+      padding: 0;
+      overflow: hidden;
     }
-    details + details { margin-top: 12px; }
     summary {
-      cursor: pointer;
+      padding: 14px;
       font-weight: 700;
-      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     summary::-webkit-details-marker { display: none; }
-    .chev {
-      display: inline-block;
-      transition: transform 180ms ease;
-      margin-right: 6px;
-    }
+    details[open] summary { border-bottom: 1px dashed var(--blue-300); }
+
+    .chev { transition: transform 180ms ease; }
     details[open] .chev { transform: rotate(90deg); }
+
+    .details-body { padding: 14px; }
 
     .grid {
       display: grid;
@@ -96,11 +91,9 @@
       gap: 16px;
       margin-top: 14px;
     }
-    .tones {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+
+    .tones { display: flex; flex-direction: column; gap: 10px; }
+
     .tone {
       background: var(--white);
       border: 1px solid var(--border);
@@ -108,51 +101,68 @@
       padding: 10px 12px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 120ms ease, box-shadow 120ms ease;
       box-shadow: var(--shadow);
+      transition: transform 120ms ease;
     }
-    .tone:hover {
-      transform: translateY(-1px);
-    }
+    .tone:hover { transform: translateY(-1px); }
 
     .preview {
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 14px;
-      min-height: 140px;
+      min-height: 160px;
       box-shadow: var(--shadow);
       position: relative;
-      overflow: auto;
-      line-height: 1.5;
+      line-height: 1.55;
     }
-    .preview h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
+
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: var(--blue-200);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
     }
-    .muted {
-      color: var(--ink-soft);
-      font-size: 13px;
+
+    /* ✅ Placeholder behavior for editable areas */
+    [contenteditable="true"][data-placeholder]:empty:before {
+      content: attr(data-placeholder);
+      color: #94a3b8;
+      pointer-events: none;
+    }
+    [contenteditable="true"] {
+      border-radius: 6px;
+      padding: 2px 4px;
+      transition: 0.18s;
+    }
+    [contenteditable="true"]:focus {
+      background-color: #d9f0ff;
+      outline: 1px dashed var(--blue-300);
     }
 
     .back {
-      margin-top: 16px;
       display: inline-block;
+      margin-top: 16px;
       text-decoration: none;
-      font-weight: 600;
+      background: var(--blue-200);
       padding: 8px 12px;
       border-radius: 10px;
-      background: var(--blue-200);
-      color: var(--ink);
       border: 1px solid var(--border);
+      font-weight: 600;
+      color: var(--ink);
       box-shadow: var(--shadow);
     }
 
-    @media (max-width: 720px) {
-      .grid { grid-template-columns: 1fr; }
-    }
+    @media(max-width:720px){ .grid{grid-template-columns:1fr;} }
   </style>
 </head>
+
 <body>
   <nav class="tabs">
     <a class="tab" href="{{ url_for('home') }}">Home</a>
@@ -163,19 +173,25 @@
     <section class="card">
       <h1>Email Templates</h1>
 
-      <details>
+      <details open>
         <summary><span class="chev">▶</span> Click here for additional templates</summary>
 
-        <div class="grid">
-          <div class="tones">
-            <div class="tone" data-tone="friendly">Friendly</div>
-            <div class="tone" data-tone="serious">Serious</div>
-            <div class="tone" data-tone="business">Business-Professional</div>
-          </div>
+        <div class="details-body">
+          <div class="grid">
 
-          <div class="preview" id="preview">
-            <h3>Hover a tone</h3>
-            <p class="muted">When you hover over a tone on the left, an editable email sample will appear here.</p>
+            <div class="tones">
+              <div class="tone" data-tone="friendly">Friendly</div>
+              <div class="tone" data-tone="serious">Serious</div>
+              <div class="tone" data-tone="business">Business-Professional</div>
+              <div class="tone" data-tone="reminder">Reminder</div>
+            </div>
+
+            <div class="preview" id="preview">
+              <h3>Hover a tone</h3>
+              <p>Hover a tone to display and edit the email.</p>
+              <button class="copy-btn" id="copyBtn" style="display:none;">Copy</button>
+            </div>
+
           </div>
         </div>
       </details>
@@ -190,47 +206,71 @@
         title: "Friendly Team Check-In",
         body: `Hi everyone,<br><br>
 I hope you’re all doing well! I just wanted to check in with our upcoming deadline for 
-<span contenteditable="true">[project name]</span> in 
-<span contenteditable="true">[class name]</span>, which will be due on 
-<span contenteditable="true">[due date]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[project name]"></span> in 
+<span contenteditable="true" data-placeholder="[class name]"></span>, which is due on 
+<span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
 I’ve completed my part of 
-<span contenteditable="true">[describe your finished work here]</span>, and I noticed we still need to finish 
-<span contenteditable="true">[describe remaining tasks here]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[finished work]"></span>, and I noticed we still need to finish 
+<span contenteditable="true" data-placeholder="[remaining tasks]"></span>.<br><br>
 Please let me know if there’s anything I can do to help.<br><br>
 Sincerely,<br>
-<span contenteditable="true">[Your Name]</span>`
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
       },
+
       serious: {
         title: "Formal Project Follow-Up",
         body: `Hello team,<br><br>
 This is a reminder regarding our upcoming submission for 
-<span contenteditable="true">[project name]</span> in 
-<span contenteditable="true">[course name]</span>, due on 
-<span contenteditable="true">[due date]</span>.<br><br>
+<span contenteditable="true" data-placeholder="[project name]"></span> in 
+<span contenteditable="true" data-placeholder="[course name]"></span>, due on 
+<span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
 Please ensure all remaining sections are completed by 
-<span contenteditable="true">[insert target date]</span> 
-to allow sufficient time for review and compilation.<br><br>
+<span contenteditable="true" data-placeholder="[target date]"></span>.<br><br>
 Best regards,<br>
-<span contenteditable="true">[Your Name]</span>`
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
       },
+
       business: {
-        title: "Business-Professional tone",
-        body: ""
+        title: "Business-Professional Update",
+        body: `Dear Team,<br><br>
+I wanted to provide an update regarding our ongoing project 
+<span contenteditable="true" data-placeholder="[project name]"></span>. We have successfully completed 
+<span contenteditable="true" data-placeholder="[completed sections]"></span> and will now proceed with 
+<span contenteditable="true" data-placeholder="[next steps]"></span>.<br><br>
+Please confirm your availability for our next meeting on 
+<span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
+Sincerely,<br>
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+      },
+
+      reminder: {
+        title: "Friendly Reminder Email",
+        body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
+Just a quick reminder about 
+<span contenteditable="true" data-placeholder="[event/task]"></span> scheduled for 
+<span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
+If you need any help or want to reschedule, please let me know.<br><br>
+Best,<br>
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
       }
     };
 
     const preview = document.getElementById("preview");
+    const copyBtn = document.getElementById("copyBtn");
+
     document.querySelectorAll(".tone").forEach(el => {
       el.addEventListener("mouseenter", () => {
-        const key = el.dataset.tone;
-        const data = EXAMPLES[key];
-        if (!data) return;
-        preview.innerHTML = `
-          <h3>${data.title}</h3>
-          <p>${data.body}</p>
-         
-        `;
+        const data = EXAMPLES[el.dataset.tone];
+        preview.innerHTML = `<h3>${data.title}</h3><div>${data.body}</div>`;
+        preview.appendChild(copyBtn);
+        copyBtn.style.display = "block";
       });
+    });
+
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(preview.innerText);
+      copyBtn.innerText = "Copied!";
+      setTimeout(()=>copyBtn.innerText="Copy",800);
     });
   </script>
 </body>
