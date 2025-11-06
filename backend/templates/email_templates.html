@@ -148,16 +148,6 @@
       box-shadow: var(--shadow);
     }
 
-    [contenteditable="true"] {
-      background-color: #f0faff;
-      border-radius: 6px;
-      padding: 2px 4px;
-      outline: none;
-    }
-    [contenteditable="true"]:focus {
-      background-color: #d9f0ff;
-    }
-
     @media (max-width: 720px) {
       .grid { grid-template-columns: 1fr; }
     }
@@ -181,7 +171,6 @@
             <div class="tone" data-tone="friendly">Friendly</div>
             <div class="tone" data-tone="serious">Serious</div>
             <div class="tone" data-tone="business">Business-Professional</div>
-            <div class="tone" data-tone="reminder">Reminder</div>
           </div>
 
           <div class="preview" id="preview">
@@ -225,26 +214,8 @@ Best regards,<br>
 <span contenteditable="true">[Your Name]</span>`
       },
       business: {
-        title: "Business-Professional Update",
-        body: `Dear Team,<br><br>
-I wanted to provide an update regarding our ongoing project 
-<span contenteditable="true">[project name]</span>. We have successfully completed 
-<span contenteditable="true">[completed sections]</span> and will now proceed with 
-<span contenteditable="true">[next steps]</span>.<br><br>
-Please confirm your availability for our next meeting on 
-<span contenteditable="true">[date/time]</span>.<br><br>
-Sincerely,<br>
-<span contenteditable="true">[Your Name]</span>`
-      },
-      reminder: {
-        title: "Friendly Reminder Email",
-        body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
-Just a quick reminder about 
-<span contenteditable="true">[event/task]</span> scheduled for 
-<span contenteditable="true">[date/time]</span>.<br><br>
-If you need any help or want to reschedule, please let me know.<br><br>
-Best,<br>
-<span contenteditable="true">[Your Name]</span>`
+        title: "Business-Professional tone",
+        body: ""
       }
     };
 
@@ -256,20 +227,10 @@ Best,<br>
         if (!data) return;
         preview.innerHTML = `
           <h3>${data.title}</h3>
-          <div>${data.body}</div>
+          <p>${data.body}</p>
+         
         `;
-        // Restore saved version if it exists
-        const saved = localStorage.getItem(key + "_template");
-        if (saved) preview.innerHTML = saved;
       });
-    });
-
-    // Save edits to localStorage when typing
-    preview.addEventListener("input", () => {
-      const activeTone = document.querySelector(".tone:hover");
-      if (activeTone) {
-        localStorage.setItem(activeTone.dataset.tone + "_template", preview.innerHTML);
-      }
     });
   </script>
 </body>
