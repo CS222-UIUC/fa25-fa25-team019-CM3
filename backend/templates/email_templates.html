@@ -30,6 +30,9 @@
       --white: #0f172a;
       --border: #334155;
       --shadow: 0 6px 14px rgba(0,0,0,0.4);
+       --editable-bg: #1e293b;
+  --editable-text: #f1f5f9;
+  --editable-focus-bg: #475569;
     }
 
     * { box-sizing: border-box; }
@@ -134,11 +137,79 @@
       font-weight: 600;
     }
 
-    /* PLACEHOLDER STYLE */
+
     [contenteditable="true"][data-placeholder]:empty:before {
       content: attr(data-placeholder);
       color: var(--ink-soft);
       pointer-events: none;
+    }
+
+      .email-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .email-fields label {
+      font-weight: 600;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+    .email-fields input {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 8px;
+      font-family: inherit;
+      font-size: 14px;
+      box-shadow: var(--shadow);
+    }
+    .email-fields input:focus {
+      outline: 2px solid var(--blue-300);
+    }
+    .ccbcc-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--blue-200);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      transition: background 0.2s ease;
+    }
+    .ccbcc-toggle:hover { background: var(--blue-300); }
+    .hidden { display: none; }
+
+     #copy-btn {
+      margin-top: 10px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background 0.3s ease;
+    }
+    #copy-btn:hover { background-color: #357abd; }
+
+    [contenteditable="true"] {
+      background-color:  var(--editable-bg, #f0faff);
+      color: var(--editable-text, var(--ink));
+      border-radius: 6px;
+      padding: 4px 6px;
+      min-width: 80px;
+      display: inline-block;
+      font-size: 15px;
+      
+    }
+    [contenteditable="true"]:focus {
+      background-color: var(--editable-focus-bg, #d9f0ff);
     }
 
     @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
@@ -168,6 +239,9 @@
             <div class="tone" data-tone="serious">Serious</div>
             <div class="tone" data-tone="business">Business-Professional</div>
             <div class="tone" data-tone="reminder">Reminder</div>
+            <div class="tone" data-tone="apology">Apology</div>
+            <div class="tone" data-tone="thankyou">Thank You</div>
+
           </div>
 
           <div class="preview" id="preview">
@@ -214,16 +288,72 @@ Sincerely,<br><span contenteditable="true" data-placeholder="[Your Name]"></span
 Just a quick reminder about <span contenteditable="true" data-placeholder="[event/task]"></span> scheduled for <span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
 If you need any help or want to reschedule, please let me know.<br><br>
 Best,<br><span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      }
+       },
+apology: {
+  title: "Apology Email",
+  body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
+I wanted to follow up and apologize for <span contenteditable="true">[specific issue or delay]</span>. 
+It was never my intention to cause any inconvenience, and I truly appreciate your understanding.<br><br>
+I’ll make sure to <span contenteditable="true">[describe corrective action]</span> moving forward.<br><br>
+Thank you again for your patience and for bringing this to my attention.<br><br>
+Sincerely,<br>
+<span contenteditable="true">[Your Name]</span>`
+  },
+      thankyou: {
+  title: "Thank You / Appreciation Email",
+  body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
+I just wanted to take a moment to thank you for <span contenteditable="true">[specific help, contribution, or collaboration]</span>.<br><br>
+Your support and effort really made a difference in <span contenteditable="true">[project/event name]</span>, and I appreciate the time you took to help out.<br><br>
+Looking forward to working together again soon!<br><br>
+Best,<br>
+<span contenteditable="true">[Your Name]</span>`
+}
     };
 
     const preview = document.getElementById("preview");
     document.querySelectorAll(".tone").forEach(el => {
       el.addEventListener("mouseenter", () => {
         const key = el.dataset.tone;
-        preview.innerHTML = `<h3>${EXAMPLES[key].title}</h3><div>${EXAMPLES[key].body}</div>`;
+        
+
+
+
+        const data = EXAMPLES[key];
+        if (!data) return;
+
+        preview.innerHTML = `
+          <h3>${data.title}</h3>
+          <div class="email-fields">
+            <label>To:</label>
+            <input type="text" placeholder="recipient@example.com">
+            <button class="ccbcc-toggle">+Cc/Bcc</button>
+
+            <div id="extra-fields" class="hidden">
+              <label>Cc:</label>
+              <input type="text" placeholder="cc@example.com">
+              <label>Bcc:</label>
+              <input type="text" placeholder="bcc@example.com">
+            </div>
+
+            <label>Subject:</label>
+            <input type="text" placeholder="Enter subject here">
+          </div>
+
+          <div id="email-body">${data.body}</div>
+<button id="copy-btn">Copy Email</button>
+        `;
+
+         const toggleBtn = preview.querySelector(".ccbcc-toggle");
+        const extraFields = preview.querySelector("#extra-fields");
+        toggleBtn.addEventListener("click", () => {
+          extraFields.classList.toggle("hidden");
+          toggleBtn.textContent = extraFields.classList.contains("hidden")
+            ? "+Cc/Bcc"
+            : "Hide Cc/Bcc";
+        });
       });
     });
+    
 
     // DARK MODE TOGGLE
     const toggle = document.getElementById("themeToggle");
@@ -242,6 +372,35 @@ Best,<br><span contenteditable="true" data-placeholder="[Your Name]"></span>`
         toggle.textContent = "☀️ Light Mode";
       }
     });
+
+    //copy button
+    preview.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "copy-btn") {
+    const bodyDiv = preview.querySelector("#email-body");
+    if (!bodyDiv) return;
+    const content = bodyDiv.innerText;
+    navigator.clipboard.writeText(content).then(() => {
+      e.target.textContent = "Copied!";
+      e.target.style.backgroundColor = "#4ade80";
+      setTimeout(() => {
+        e.target.textContent = "Copy Email";
+        e.target.style.backgroundColor = "#4a90e2";
+      }, 1500);
+    });
+  }
+});
+
+// Placeholder clear logic
+preview.addEventListener("focusin", (e) => {
+  if (e.target.hasAttribute("contenteditable")) {
+    const text = e.target.innerText.trim();
+    if (text.startsWith("[") && text.endsWith("]")) {
+      e.target.innerText = "";
+    }
+  }
+});
+
+
   </script>
 
 </body>
