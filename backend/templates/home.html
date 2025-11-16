@@ -11,10 +11,24 @@
       --blue-200: #c4e7ff;
       --blue-300: #a7dbff;
       --ink: #1f2a44;
+      --ink-soft: #475569;
       --white: #ffffff;
       --border: #d9e2ec;
       --shadow: 0 8px 24px rgba(31, 42, 68, 0.08);
       --radius: 16px;
+    }
+
+    /* 🌙 DARK MODE (same as Email Templates page) */
+    [data-theme="dark"] {
+      --pastel-blue: #1e293b;
+      --blue-100: #334155;
+      --blue-200: #475569;
+      --blue-300: #64748b;
+      --ink: #f1f5f9;
+      --ink-soft: #cbd5e1;
+      --white: #0f172a;
+      --border: #334155;
+      --shadow: 0 6px 14px rgba(0,0,0,0.4);
     }
 
     body {
@@ -23,8 +37,8 @@
       margin: 0;
       padding: 0;
       color: var(--ink);
+      transition: background 0.3s ease, color 0.3s ease;
     }
-
 
     .card {
       background: var(--white);
@@ -47,6 +61,9 @@
       border-radius: 10px;
       border: 1px solid var(--border);
       font-size: 15px;
+      background: var(--white);
+      color: var(--ink);
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     button {
@@ -59,9 +76,7 @@
       transition: transform 0.1s ease;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-    }
+    button:hover { transform: translateY(-1px); }
 
     .result {
       margin-top: 20px;
@@ -69,10 +84,13 @@
       border-radius: 10px;
       padding: 15px;
       white-space: pre-wrap;
+      color: var(--ink);
     }
+
     .tabs {
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
       padding: 14px 18px;
       background: var(--blue-200);
       border-bottom: 1px solid var(--border);
@@ -80,6 +98,7 @@
       top: 0;
       z-index: 10;
     }
+
     .tab {
       text-decoration: none;
       color: var(--ink);
@@ -88,15 +107,38 @@
       border-radius: 10px;
       box-shadow: var(--shadow);
       font-weight: 600;
-      transition: transform 120ms ease, box-shadow 120ms ease;
+      transition: transform 120ms ease;
     }
     .tab:hover { transform: translateY(-1px); }
-    .tab.active { outline: 2px solid var(--blue-300); }
+
+    .theme-toggle {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(31, 42, 68, 0.10);
+      transition: transform 0.12s ease;
+      width: auto !important;
+      display: inline-block !important;
+      flex: 0 0 auto !important;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+    }
+
   </style>
 </head>
+
 <body>
   <nav class="tabs">
     <a class="tab" href="{{ url_for('email_templates') }}">Email Templates</a>
+
+    <!-- 🌙 THEME TOGGLE BUTTON -->
+    <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
   </nav>
 
   <div style="display:flex; justify-content:center; margin-top:50px;">
@@ -120,5 +162,28 @@
       {% endif %}
     </div>
   </div>
+
+  <script>
+    const toggle = document.getElementById("themeToggle");
+
+    // Load saved theme
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+      toggle.textContent = "☀️ Light Mode";
+    }
+
+    toggle.addEventListener("click", () => {
+      if (document.documentElement.getAttribute("data-theme") === "dark") {
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem("theme", "light");
+        toggle.textContent = "🌙 Dark Mode";
+      } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+        toggle.textContent = "☀️ Light Mode";
+      }
+    });
+  </script>
+
 </body>
 </html>
