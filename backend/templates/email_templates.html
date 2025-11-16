@@ -12,38 +12,53 @@
       --blue-200: #c4e7ff;
       --blue-300: #a7dbff;
       --ink: #1f2a44;
-      --ink-soft: #475569;
+      --ink-soft: #64748b;
       --white: #ffffff;
       --border: #d9e2ec;
-      --shadow: 0 8px 24px rgba(31, 42, 68, 0.08);
+      --shadow: 0 10px 28px rgba(31, 42, 68, 0.12);
       --radius: 16px;
+      --chip-bg: #edf2ff;
+      --chip-border: #c7d2fe;
+      --editable-bg: #f0f9ff;
+      --editable-focus-bg: #e0f2fe;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --accent-strong: #1d4ed8;
     }
 
-    /* DARK MODE */
+    /* Dark mode */
     [data-theme="dark"] {
-      --pastel-blue: #1e293b;
-      --blue-100: #334155;
-      --blue-200: #475569;
-      --blue-300: #64748b;
-      --ink: #f1f5f9;
-      --ink-soft: #cbd5e1;
-      --white: #0f172a;
-      --border: #334155;
-      --shadow: 0 6px 14px rgba(0,0,0,0.4);
-       --editable-bg: #1e293b;
-  --editable-text: #f1f5f9;
-  --editable-focus-bg: #475569;
+      --pastel-blue: #020617;
+      --blue-100: #020617;
+      --blue-200: #0f172a;
+      --blue-300: #1e293b;
+      --ink: #e5e7eb;
+      --ink-soft: #9ca3af;
+      --white: #020617;
+      --border: #1f2937;
+      --shadow: 0 12px 32px rgba(0,0,0,0.6);
+      --chip-bg: #020617;
+      --chip-border: #1e293b;
+      --editable-bg: #020617;
+      --editable-focus-bg: #111827;
+      --accent: #38bdf8;
+      --accent-soft: #0f172a;
+      --accent-strong: #0ea5e9;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      background: linear-gradient(180deg, var(--pastel-blue), var(--blue-100));
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at top, var(--pastel-blue) 0, var(--blue-100) 40%, var(--blue-200) 100%);
       color: var(--ink);
-      transition: background 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
     }
 
+    /* Top nav */
     .tabs {
       display: flex;
       align-items: center;
@@ -55,50 +70,114 @@
       top: 0;
       z-index: 10;
     }
+
+    .tabs-left {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
     .tab {
       text-decoration: none;
       color: var(--ink);
       background: var(--white);
-      padding: 8px 12px;
-      border-radius: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
       font-weight: 600;
       box-shadow: var(--shadow);
-      margin-right: 10px;
+      font-size: 14px;
+      border: 1px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .tab:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.15);
+      border-color: var(--accent-soft);
+    }
+
+    .tab-active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
     }
 
     .theme-toggle {
-      padding: 8px 12px;
-      border-radius: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--white);
       cursor: pointer;
       font-weight: 600;
+      font-size: 13px;
       box-shadow: var(--shadow);
-      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
-    .theme-toggle:hover { transform: translateY(-1px); }
 
-    .shell { max-width: 980px; margin: 28px auto; padding: 18px; }
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+    }
+
+    .shell {
+      max-width: 1040px;
+      margin: 28px auto 36px;
+      padding: 0 18px 24px;
+    }
+
     .card {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 26px;
       box-shadow: var(--shadow);
-      padding: 20px;
-      transition: 0.3s ease;
+      padding: 20px 22px 22px;
     }
 
-    details {
-      background: var(--pastel-blue);
-      border: 1px dashed var(--blue-300);
-      border-radius: 12px;
-      padding: 14px;
+    h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      letter-spacing: 0.02em;
     }
+
+    .subtitle {
+      margin: 0 0 20px;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    /* Main layout */
+    details {
+      background: linear-gradient(135deg, var(--blue-100), rgba(255,255,255,0.6));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 12px 16px 16px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ink-soft);
+      list-style: none;
+    }
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 16px;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 18px;
       margin-top: 14px;
+    }
+
+    /* Left tones column */
+    .tones {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .tone {
@@ -109,34 +188,153 @@
       font-weight: 600;
       cursor: pointer;
       box-shadow: var(--shadow);
-      transition: transform 120ms ease;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
     }
-    .tone:hover { transform: translateY(-1px); }
 
+    .tone span.badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .tone:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.16);
+    }
+
+    .tone-active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* Right preview column */
     .preview {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      min-height: 140px;
+      border-radius: 18px;
+      padding: 16px 16px 14px;
+      min-height: 180px;
       box-shadow: var(--shadow);
       line-height: 1.5;
-      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .back {
-      margin-top: 16px;
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 10px;
-      background: var(--blue-200);
-      color: var(--ink);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      text-decoration: none;
+    .preview h3 {
+      margin: 0 0 4px;
+      font-size: 18px;
+    }
+
+    .email-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .email-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .email-row label {
       font-weight: 600;
+      color: var(--ink-soft);
+      min-width: 55px;
     }
 
+    .email-row input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-family: inherit;
+      font-size: 13px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+      background: rgba(255,255,255,0.9);
+    }
+
+    .email-row input:focus {
+      outline: 2px solid var(--accent-soft);
+      border-color: var(--accent);
+      background: var(--white);
+    }
+
+    .ccbcc-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--accent-strong);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .ccbcc-toggle:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Quick insert chips */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px dashed var(--chip-border);
+      background: var(--chip-bg);
+      padding: 3px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      color: var(--ink-soft);
+      font-weight: 500;
+      transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+    }
+
+    .chip:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Email body editor */
+    #email-body {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      min-height: 150px;
+      background: var(--editable-bg);
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-y: auto;
+    }
 
     [contenteditable="true"][data-placeholder]:empty:before {
       content: attr(data-placeholder);
@@ -144,109 +342,289 @@
       pointer-events: none;
     }
 
-      .email-fields {
+    [contenteditable="true"] {
+      outline: none;
+      cursor: text;
+    }
+
+    [contenteditable="true"]:focus {
+      background: var(--editable-focus-bg);
+    }
+
+    /* Actions row */
+    .actions-row {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 12px;
-      position: relative;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
     }
-    .email-fields label {
-      font-weight: 600;
-      color: var(--ink-soft);
-      font-size: 14px;
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-    .email-fields input {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 8px;
-      font-family: inherit;
-      font-size: 14px;
-      box-shadow: var(--shadow);
-    }
-    .email-fields input:focus {
-      outline: 2px solid var(--blue-300);
-    }
-    .ccbcc-toggle {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background: var(--blue-200);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 4px 8px;
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 7px 12px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      color: var(--ink);
-      box-shadow: var(--shadow);
-      transition: background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.18);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      white-space: nowrap;
     }
-    .ccbcc-toggle:hover { background: var(--blue-300); }
-    .hidden { display: none; }
 
-     #copy-btn {
-      margin-top: 10px;
-      background-color: #4a90e2;
+    .btn-primary {
+      background: var(--accent);
       color: white;
-      border: none;
-      border-radius: 6px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3);
+      background: var(--accent-strong);
+    }
+
+    .btn-ghost {
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--ink-soft);
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.85);
+      color: var(--ink-soft);
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+    }
+
+    /* Saved templates */
+    .saved-box {
+      border-radius: 14px;
+      border: 1px dashed var(--border);
+      padding: 6px 10px 8px;
+      background: rgba(248, 250, 252, 0.7);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .saved-box label {
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+
+    .saved-select {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      font-size: 11px;
+      background: white;
+      max-width: 210px;
+    }
+
+    /* Stats */
+    .stats {
+      font-size: 11px;
+      color: var(--ink-soft);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .stats strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 2px 8px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Back link */
+    .back {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       padding: 8px 12px;
-      cursor: pointer;
+      border-radius: 999px;
+      background: var(--blue-200);
+      color: var(--ink);
+      border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      transition: background 0.3s ease;
-    }
-    #copy-btn:hover { background-color: #357abd; }
-
-    [contenteditable="true"] {
-      background-color:  var(--editable-bg, #f0faff);
-      color: var(--editable-text, var(--ink));
-      border-radius: 6px;
-      padding: 4px 6px;
-      min-width: 80px;
-      display: inline-block;
-      font-size: 15px;
-      
-    }
-    [contenteditable="true"]:focus {
-      background-color: var(--editable-focus-bg, #d9f0ff);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
     }
 
-    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    .back:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.25);
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .tabs {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .theme-toggle {
+        align-self: flex-end;
+      }
+
+      .card {
+        padding: 18px 16px;
+      }
+    }
   </style>
 </head>
-
 <body>
   <nav class="tabs">
-    <div>
+    <div class="tabs-left">
       <a class="tab" href="{{ url_for('home') }}">Home</a>
-      <a class="tab" href="{{ url_for('email_templates') }}">Email Templates</a>
+      <a class="tab tab-active" href="{{ url_for('email_templates') }}">Email Templates</a>
     </div>
-
-    <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+    <button class="theme-toggle" id="themeToggle">
+      🌙 Dark Mode
+    </button>
   </nav>
 
   <main class="shell">
     <section class="card">
       <h1>Email Templates</h1>
+      <p class="subtitle">
+        Pick a tone, customize the placeholders, then quickly copy, open in your email app, or save your favorite versions.
+      </p>
 
       <details open>
         <summary>▼ Click here for additional templates</summary>
 
         <div class="grid">
+          <!-- LEFT: tone list -->
           <div class="tones">
-            <div class="tone" data-tone="friendly">Friendly</div>
-            <div class="tone" data-tone="serious">Serious</div>
-            <div class="tone" data-tone="business">Business-Professional</div>
-            <div class="tone" data-tone="reminder">Reminder</div>
-            <div class="tone" data-tone="apology">Apology</div>
-            <div class="tone" data-tone="thankyou">Thank You</div>
-
+            <div class="tone tone-active" data-tone="friendly">
+              Friendly <span class="badge">Team</span>
+            </div>
+            <div class="tone" data-tone="serious">
+              Serious <span class="badge">Formal</span>
+            </div>
+            <div class="tone" data-tone="business">
+              Business-Professional <span class="badge">Update</span>
+            </div>
+            <div class="tone" data-tone="reminder">
+              Reminder <span class="badge">Follow-up</span>
+            </div>
+            <div class="tone" data-tone="apology">
+              Apology <span class="badge">Repair</span>
+            </div>
+            <div class="tone" data-tone="thankyou">
+              Thank You <span class="badge">Gratitude</span>
+            </div>
           </div>
 
-          <div class="preview" id="preview">
-            <h3>Hover a tone</h3>
-            <p style="color: var(--ink-soft);">Hover a tone to display and edit the email.</p>
+          <!-- RIGHT: preview / editor -->
+          <div class="preview">
+            <h3 id="templateTitle">Friendly Team Check-In</h3>
+
+            <div class="email-fields">
+              <button class="ccbcc-toggle" id="ccToggle">+Cc/Bcc</button>
+
+              <div class="email-row">
+                <label for="toField">To:</label>
+                <input id="toField" type="email" placeholder="recipient@example.com" />
+              </div>
+
+              <div id="extraFields" class="hidden">
+                <div class="email-row">
+                  <label for="ccField">Cc:</label>
+                  <input id="ccField" type="text" placeholder="cc@example.com" />
+                </div>
+                <div class="email-row">
+                  <label for="bccField">Bcc:</label>
+                  <input id="bccField" type="text" placeholder="bcc@example.com" />
+                </div>
+              </div>
+
+              <div class="email-row">
+                <label for="subjectField">Subject:</label>
+                <input id="subjectField" type="text" placeholder="Enter subject here" />
+              </div>
+            </div>
+
+            <!-- Quick insert chips -->
+            <div class="chips" id="chipBar">
+              <div class="chip" data-text="[Professor Name]">Professor name</div>
+              <div class="chip" data-text="[Class Name]">Class name</div>
+              <div class="chip" data-text="[Project Name]">Project name</div>
+              <div class="chip" data-text="[Due Date]">Due date</div>
+              <div class="chip" data-text="[Team Name]">Team name</div>
+              <div class="chip" data-text="[Company Name]">Company name</div>
+            </div>
+
+            <!-- Email body -->
+            <div id="email-body" contenteditable="true" data-placeholder="Start typing or use a template…"></div>
+
+            <!-- Actions + saved templates + stats -->
+            <div class="actions-row">
+              <div class="button-row">
+                <button class="btn btn-primary" id="copyBtn">Copy Email</button>
+                <button class="btn btn-outline" id="openMailBtn">Open in Email App</button>
+                <button class="btn btn-ghost" id="resetBtn">Reset Template</button>
+              </div>
+
+              <div class="saved-box">
+                <label for="savedSelect">My saved templates:</label>
+                <select id="savedSelect" class="saved-select">
+                  <option value="">— None yet —</option>
+                </select>
+                <button class="btn btn-ghost" id="saveCurrentBtn" style="padding:4px 10px;font-size:11px;">
+                  Save current
+                </button>
+                <button class="btn btn-ghost" id="deleteSavedBtn" style="padding:4px 10px;font-size:11px;">
+                  Delete
+                </button>
+              </div>
+            </div>
+
+            <div class="stats" id="statsBar">
+              <span><strong>Words:</strong> <span id="wordCount">0</span></span>
+              <span>·</span>
+              <span><strong>Read time:</strong> <span id="readTime">0 min</span></span>
+              <span>·</span>
+              <span>Tone: <span class="pill" id="toneLabel">Friendly</span></span>
+            </div>
           </div>
         </div>
       </details>
@@ -256,152 +634,360 @@
   </main>
 
   <script>
+    // -----------------------------
+    // Template data
+    // -----------------------------
     const EXAMPLES = {
       friendly: {
         title: "Friendly Team Check-In",
+        subject: "Quick check-in about our project",
         body: `Hi everyone,<br><br>
-I hope you’re all doing well! I just wanted to check in with our upcoming deadline for <span contenteditable="true" data-placeholder="[project name]"></span> in <span contenteditable="true" data-placeholder="[class name]"></span>, which is due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
-I’ve completed my part of <span contenteditable="true" data-placeholder="[your completed task]"></span>, and I noticed we still need to finish <span contenteditable="true" data-placeholder="[remaining tasks]"></span>.<br><br>
+I hope you’re all doing well! I just wanted to check in with our upcoming deadline for <span contenteditable="true">[project name]</span> in <span contenteditable="true">[class name]</span>, which is due on <span contenteditable="true">[due date]</span>.<br><br>
+I’ve completed my part of <span contenteditable="true">[your completed task]</span>, and I noticed we still need to finish <span contenteditable="true">[remaining tasks]</span>.<br><br>
 Please let me know if there’s anything I can do to help.<br><br>
-Sincerely,<br><span contenteditable="true" data-placeholder="[Your Name]"></span>`
+Sincerely,<br>
+<span contenteditable="true">[Your Name]</span>`
       },
-
       serious: {
         title: "Formal Project Follow-Up",
+        subject: "Follow-up on our course project",
         body: `Hello team,<br><br>
-This is a reminder regarding our upcoming submission for <span contenteditable="true" data-placeholder="[project name]"></span> in <span contenteditable="true" data-placeholder="[course name]"></span>, due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
-Please ensure all remaining sections are completed by <span contenteditable="true" data-placeholder="[target date]"></span> to allow sufficient time for review and compilation.<br><br>
-Best regards,<br><span contenteditable="true" data-placeholder="[Your Name]"></span>`
+This is a reminder regarding our upcoming submission for <span contenteditable="true">[project name]</span> in <span contenteditable="true">[course name]</span>, due on <span contenteditable="true">[due date]</span>.<br><br>
+Please ensure all remaining sections are completed by <span contenteditable="true">[target date]</span> so we have enough time to review and compile everything.<br><br>
+Best regards,<br>
+<span contenteditable="true">[Your Name]</span>`
       },
-
       business: {
         title: "Business-Professional Update",
+        subject: "Status update on our project",
         body: `Dear Team,<br><br>
-I wanted to provide an update regarding our ongoing project <span contenteditable="true" data-placeholder="[project name]"></span>. We have successfully completed <span contenteditable="true" data-placeholder="[completed section]"></span> and will now proceed with <span contenteditable="true" data-placeholder="[next steps]"></span>.<br><br>
-Please confirm your availability for our next meeting on <span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
-Sincerely,<br><span contenteditable="true" data-placeholder="[Your Name]"></span>`
+I wanted to provide an update on our ongoing project, <span contenteditable="true">[project name]</span>. We have successfully completed <span contenteditable="true">[completed section]</span> and will now proceed with <span contenteditable="true">[next steps]</span>.<br><br>
+Please confirm your availability for our next meeting on <span contenteditable="true">[date/time]</span>.<br><br>
+Sincerely,<br>
+<span contenteditable="true">[Your Name]</span>`
       },
-
       reminder: {
         title: "Friendly Reminder Email",
-        body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
-Just a quick reminder about <span contenteditable="true" data-placeholder="[event/task]"></span> scheduled for <span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
-If you need any help or want to reschedule, please let me know.<br><br>
-Best,<br><span contenteditable="true" data-placeholder="[Your Name]"></span>`
-       },
-apology: {
-  title: "Apology Email",
-  body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
-I wanted to follow up and apologize for <span contenteditable="true">[specific issue or delay]</span>. 
-It was never my intention to cause any inconvenience, and I truly appreciate your understanding.<br><br>
-I’ll make sure to <span contenteditable="true">[describe corrective action]</span> moving forward.<br><br>
+        subject: "Friendly reminder",
+        body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
+Just a quick reminder about <span contenteditable="true">[event/task]</span> scheduled for <span contenteditable="true">[date/time]</span>.<br><br>
+If you need any help or would like to reschedule, please let me know.<br><br>
+Best,<br>
+<span contenteditable="true">[Your Name]</span>`
+      },
+      apology: {
+        title: "Apology Email",
+        subject: "My apologies",
+        body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
+I wanted to follow up and apologize for <span contenteditable="true">[specific issue or delay]</span>. It was never my intention to cause any inconvenience, and I truly appreciate your understanding.<br><br>
+I’ll make sure to <span contenteditable="true">[describe corrective action]</span> going forward.<br><br>
 Thank you again for your patience and for bringing this to my attention.<br><br>
 Sincerely,<br>
 <span contenteditable="true">[Your Name]</span>`
-  },
+      },
       thankyou: {
-  title: "Thank You / Appreciation Email",
-  body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
+        title: "Thank You / Appreciation Email",
+        subject: "Thank you!",
+        body: `Hi <span contenteditable="true">[Name]</span>,<br><br>
 I just wanted to take a moment to thank you for <span contenteditable="true">[specific help, contribution, or collaboration]</span>.<br><br>
 Your support and effort really made a difference in <span contenteditable="true">[project/event name]</span>, and I appreciate the time you took to help out.<br><br>
 Looking forward to working together again soon!<br><br>
 Best,<br>
 <span contenteditable="true">[Your Name]</span>`
-}
+      }
     };
 
-    const preview = document.getElementById("preview");
+    // -----------------------------
+    // DOM references
+    // -----------------------------
+    const titleEl = document.getElementById("templateTitle");
+    const bodyEl = document.getElementById("email-body");
+    const subjectField = document.getElementById("subjectField");
+    const toField = document.getElementById("toField");
+    const ccField = document.getElementById("ccField");
+    const bccField = document.getElementById("bccField");
+    const ccToggle = document.getElementById("ccToggle");
+    const extraFields = document.getElementById("extraFields");
+    const chipBar = document.getElementById("chipBar");
+    const copyBtn = document.getElementById("copyBtn");
+    const openMailBtn = document.getElementById("openMailBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const wordCountEl = document.getElementById("wordCount");
+    const readTimeEl = document.getElementById("readTime");
+    const toneLabel = document.getElementById("toneLabel");
+    const savedSelect = document.getElementById("savedSelect");
+    const saveCurrentBtn = document.getElementById("saveCurrentBtn");
+    const deleteSavedBtn = document.getElementById("deleteSavedBtn");
+    const themeToggle = document.getElementById("themeToggle");
+
+    let activeTone = "friendly";
+    let lastFocusedEditable = null;
+
+    // -----------------------------
+    // Helper functions
+    // -----------------------------
+    function setTone(toneKey) {
+      const data = EXAMPLES[toneKey];
+      if (!data) return;
+
+      activeTone = toneKey;
+      titleEl.textContent = data.title;
+      toneLabel.textContent = toneKey[0].toUpperCase() + toneKey.slice(1).replace("thankyou", "Thank You");
+
+      // fill subject if empty or from previous template
+      if (!subjectField.value || subjectField.dataset.autofilled === "true") {
+        subjectField.value = data.subject || "";
+        subjectField.dataset.autofilled = "true";
+      }
+
+      bodyEl.innerHTML = data.body;
+
+      document.querySelectorAll(".tone").forEach(t => t.classList.remove("tone-active"));
+      const active = document.querySelector(`.tone[data-tone="${toneKey}"]`);
+      if (active) active.classList.add("tone-active");
+
+      updateStats();
+    }
+
+    function getPlainTextFromHtml(html) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html;
+      return tmp.innerText.replace(/\u00A0/g, " ").trim();
+    }
+
+    function updateStats() {
+      const subjectText = subjectField.value || "";
+      const bodyText = getPlainTextFromHtml(bodyEl.innerHTML || bodyEl.innerText || "");
+      const combined = (subjectText + " " + bodyText).trim();
+      const words = combined ? combined.split(/\s+/).length : 0;
+      const minutes = words === 0 ? 0 : Math.max(1, Math.round(words / 200));
+
+      wordCountEl.textContent = words;
+      readTimeEl.textContent = minutes + " min";
+    }
+
+    function getEmailContent() {
+      const subject = subjectField.value.trim() || titleEl.textContent.trim();
+      const bodyPlain = getPlainTextFromHtml(bodyEl.innerHTML || bodyEl.innerText || "");
+      const to = toField.value.trim();
+
+      return { subject, bodyPlain, to };
+    }
+
+    function loadSavedTemplates() {
+      const raw = localStorage.getItem("savedEmailTemplates");
+      let data = {};
+      if (raw) {
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          data = {};
+        }
+      }
+
+      // Clear existing options
+      while (savedSelect.options.length > 1) {
+        savedSelect.remove(1);
+      }
+
+      Object.keys(data).forEach(key => {
+        const opt = document.createElement("option");
+        opt.value = key;
+        opt.textContent = key;
+        savedSelect.appendChild(opt);
+      });
+
+      return data;
+    }
+
+    function saveTemplatesToStorage(data) {
+      localStorage.setItem("savedEmailTemplates", JSON.stringify(data));
+      loadSavedTemplates();
+    }
+
+    // -----------------------------
+    // Init default tone
+    // -----------------------------
+    setTone(activeTone);
+
+    // -----------------------------
+    // Tone buttons
+    // -----------------------------
     document.querySelectorAll(".tone").forEach(el => {
-      el.addEventListener("mouseenter", () => {
+      el.addEventListener("click", () => {
         const key = el.dataset.tone;
-        
-
-
-
-        const data = EXAMPLES[key];
-        if (!data) return;
-
-        preview.innerHTML = `
-          <h3>${data.title}</h3>
-          <div class="email-fields">
-            <label>To:</label>
-            <input type="text" placeholder="recipient@example.com">
-            <button class="ccbcc-toggle">+Cc/Bcc</button>
-
-            <div id="extra-fields" class="hidden">
-              <label>Cc:</label>
-              <input type="text" placeholder="cc@example.com">
-              <label>Bcc:</label>
-              <input type="text" placeholder="bcc@example.com">
-            </div>
-
-            <label>Subject:</label>
-            <input type="text" placeholder="Enter subject here">
-          </div>
-
-          <div id="email-body">${data.body}</div>
-<button id="copy-btn">Copy Email</button>
-        `;
-
-         const toggleBtn = preview.querySelector(".ccbcc-toggle");
-        const extraFields = preview.querySelector("#extra-fields");
-        toggleBtn.addEventListener("click", () => {
-          extraFields.classList.toggle("hidden");
-          toggleBtn.textContent = extraFields.classList.contains("hidden")
-            ? "+Cc/Bcc"
-            : "Hide Cc/Bcc";
-        });
+        subjectField.dataset.autofilled = "true";
+        setTone(key);
       });
     });
-    
 
-    // DARK MODE TOGGLE
-    const toggle = document.getElementById("themeToggle");
-    if (localStorage.getItem("theme") === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
-      toggle.textContent = "☀️ Light Mode";
-    }
-    toggle.addEventListener("click", () => {
-      if (document.documentElement.getAttribute("data-theme") === "dark") {
-        document.documentElement.removeAttribute("data-theme");
-        localStorage.setItem("theme", "light");
-        toggle.textContent = "🌙 Dark Mode";
+    // -----------------------------
+    // Cc/Bcc toggle
+    // -----------------------------
+    ccToggle.addEventListener("click", () => {
+      const isHidden = extraFields.classList.contains("hidden");
+      extraFields.classList.toggle("hidden");
+      ccToggle.textContent = isHidden ? "Hide Cc/Bcc" : "+Cc/Bcc";
+    });
+
+    // -----------------------------
+    // Track last focused editable/input for chip inserts
+    // -----------------------------
+    [bodyEl, subjectField, toField, ccField, bccField].forEach(el => {
+      if (!el) return;
+      el.addEventListener("focus", () => {
+        lastFocusedEditable = el;
+      });
+    });
+
+    // -----------------------------
+    // Chip quick-insert
+    // -----------------------------
+    chipBar.addEventListener("click", event => {
+      const chip = event.target.closest(".chip");
+      if (!chip) return;
+      const text = chip.dataset.text || "";
+      if (!lastFocusedEditable) {
+        bodyEl.focus();
+        lastFocusedEditable = bodyEl;
+      }
+
+      // If it's an input
+      if (lastFocusedEditable.tagName === "INPUT" || lastFocusedEditable.tagName === "TEXTAREA") {
+        const el = lastFocusedEditable;
+        const start = el.selectionStart || el.value.length;
+        const end = el.selectionEnd || el.value.length;
+        el.value = el.value.slice(0, start) + text + el.value.slice(end);
+        el.focus();
+        el.selectionStart = el.selectionEnd = start + text.length;
       } else {
-        document.documentElement.setAttribute("data-theme", "dark");
-        localStorage.setItem("theme", "dark");
-        toggle.textContent = "☀️ Light Mode";
+        // contenteditable
+        lastFocusedEditable.focus();
+        document.execCommand("insertText", false, text);
+      }
+
+      updateStats();
+    });
+
+    // -----------------------------
+    // Copy email (Feature 1)
+    // -----------------------------
+    copyBtn.addEventListener("click", async () => {
+      const { subject, bodyPlain, to } = getEmailContent();
+      const lines = [];
+      if (to) lines.push("To: " + to);
+      lines.push("Subject: " + subject);
+      lines.push("");
+      lines.push(bodyPlain || "");
+      const text = lines.join("\n");
+
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy Email"), 1400);
+      } catch (err) {
+        alert("Copy failed. You can still press Ctrl/Cmd+C manually.");
       }
     });
 
-    //copy button
-    preview.addEventListener("click", (e) => {
-  if (e.target && e.target.id === "copy-btn") {
-    const bodyDiv = preview.querySelector("#email-body");
-    if (!bodyDiv) return;
-    const content = bodyDiv.innerText;
-    navigator.clipboard.writeText(content).then(() => {
-      e.target.textContent = "Copied!";
-      e.target.style.backgroundColor = "#4ade80";
-      setTimeout(() => {
-        e.target.textContent = "Copy Email";
-        e.target.style.backgroundColor = "#4a90e2";
-      }, 1500);
+    // -----------------------------
+    // Open in email app (mailto)
+    // -----------------------------
+    openMailBtn.addEventListener("click", () => {
+      const { subject, bodyPlain, to } = getEmailContent();
+      const mailto = [
+        "mailto:",
+        encodeURIComponent(to || ""),
+        "?subject=",
+        encodeURIComponent(subject),
+        "&body=",
+        encodeURIComponent(bodyPlain)
+      ].join("");
+
+      window.location.href = mailto;
     });
-  }
-});
 
-// Placeholder clear logic
-preview.addEventListener("focusin", (e) => {
-  if (e.target.hasAttribute("contenteditable")) {
-    const text = e.target.innerText.trim();
-    if (text.startsWith("[") && text.endsWith("]")) {
-      e.target.innerText = "";
+    // -----------------------------
+    // Reset to current tone template
+    // -----------------------------
+    resetBtn.addEventListener("click", () => {
+      subjectField.value = EXAMPLES[activeTone].subject || "";
+      subjectField.dataset.autofilled = "true";
+      bodyEl.innerHTML = EXAMPLES[activeTone].body;
+      updateStats();
+    });
+
+    // -----------------------------
+    // Saved templates (Feature 2)
+    // -----------------------------
+    let savedTemplates = loadSavedTemplates();
+
+    saveCurrentBtn.addEventListener("click", () => {
+      const name = prompt("Name this saved template:");
+      if (!name) return;
+
+      const { subject, bodyPlain, to } = getEmailContent();
+      savedTemplates[name] = {
+        subject,
+        body: bodyEl.innerHTML,
+        to
+      };
+      saveTemplatesToStorage(savedTemplates);
+    });
+
+    deleteSavedBtn.addEventListener("click", () => {
+      const key = savedSelect.value;
+      if (!key) return;
+      if (!confirm(`Delete saved template "${key}"?`)) return;
+      delete savedTemplates[key];
+      saveTemplatesToStorage(savedTemplates);
+      savedSelect.value = "";
+    });
+
+    savedSelect.addEventListener("change", () => {
+      const key = savedSelect.value;
+      if (!key || !savedTemplates[key]) return;
+      const data = savedTemplates[key];
+      subjectField.value = data.subject || "";
+      subjectField.dataset.autofilled = "false";
+      bodyEl.innerHTML = data.body || "";
+      if (data.to) toField.value = data.to;
+      updateStats();
+    });
+
+    // -----------------------------
+    // Live stats (Feature 8)
+    // -----------------------------
+    bodyEl.addEventListener("input", updateStats);
+    subjectField.addEventListener("input", () => {
+      subjectField.dataset.autofilled = "false";
+      updateStats();
+    });
+
+    // -----------------------------
+    // Theme toggle (dark / light)
+    // -----------------------------
+    const storedTheme = localStorage.getItem("emailTemplatesTheme");
+    if (storedTheme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+      themeToggle.textContent = "☀️ Light Mode";
     }
-  }
-});
 
+    themeToggle.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      if (isDark) {
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem("emailTemplatesTheme", "light");
+        themeToggle.textContent = "🌙 Dark Mode";
+      } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("emailTemplatesTheme", "dark");
+        themeToggle.textContent = "☀️ Light Mode";
+      }
+    });
 
+    // initial stats computation
+    updateStats();
   </script>
-
 </body>
 </html>
