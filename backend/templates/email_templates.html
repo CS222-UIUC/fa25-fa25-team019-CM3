@@ -40,7 +40,11 @@
   --border: #334155;
   --shadow: 0 6px 14px rgba(0,0,0,0.4);
 }
-
+.format-btn b,
+.format-btn i,
+.format-btn u {
+  font-size: 14px;
+}
 
     * {
       box-sizing: border-box;
@@ -525,6 +529,13 @@
               </div>
               <div class="subject-chips" id="subjectChips"></div>
             </div>
+            <div class="format-toolbar" style="display:flex; gap:8px; margin-bottom:8px;">
+  <button class="btn-ghost btn format-btn" data-command="bold"><b>B</b></button>
+  <button class="btn-ghost btn format-btn" data-command="italic"><i>I</i></button>
+  <button class="btn-ghost btn format-btn" data-command="underline"><u>U</u></button>
+  <button class="btn-ghost btn format-btn" data-command="insertUnorderedList">• List</button>
+  <button class="btn-ghost btn format-btn" data-command="insertOrderedList">1. List</button>
+</div>
 
             <div id="email-body">
               <!-- body content injected by JS -->
@@ -855,7 +866,49 @@ Best,<br>
       return lines.join("\n");
     }
 
+    function findUnfilledPlaceholders() {
+  
+  const placeholderRegex = /\[[^\]]+\]/g;
+
+  
+  const html = emailBody.innerHTML;
+
+  
+  const matches = html.match(placeholderRegex);
+
+  return matches || []; 
+}
+
+const formatButtons = document.querySelectorAll(".format-btn");
+
+formatButtons.forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const command = btn.dataset.command;
+
+    // Apply formatting
+    document.execCommand(command, false, null);
+
+    // Keep focus inside the email editor
+    emailBody.focus();
+  });
+});
+
     copyBtn.addEventListener("click", async () => {
+
+      const unfilled = findUnfilledPlaceholders();
+
+  if (unfilled.length > 0) {
+    const list = unfilled.join(", ");
+    const proceed = confirm(
+      `⚠️ You still have unfilled placeholders:\n\n${list}\n\nCopy anyway?`
+    );
+
+    if (!proceed) {
+      return; 
+    }
+  }
       const text = getPlainEmailText();
       try {
         await navigator.clipboard.writeText(text);
