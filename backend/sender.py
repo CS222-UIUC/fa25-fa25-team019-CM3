@@ -11,7 +11,7 @@ CORS(app)
 # Email configuration
 SMTP_SERVER = "smtp.gmail.com"  # Example for Gmail
 SMTP_PORT = 587
-EMAIL_ADDRESS = "your_email@gmail.com"     # Replace with your email
+EMAIL_ADDRESS = "generatore68@gmail.com"     # Replace with your email
 EMAIL_PASSWORD = "wqga vbxa teul cgcg"       # Use app password for Gmail
 
 @app.route('/send-email', methods=['POST'])
