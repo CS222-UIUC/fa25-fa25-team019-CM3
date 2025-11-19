@@ -1,3 +1,4 @@
+import flask
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import smtplib
@@ -11,7 +12,7 @@ CORS(app)
 SMTP_SERVER = "smtp.gmail.com"  # Example for Gmail
 SMTP_PORT = 587
 EMAIL_ADDRESS = "your_email@gmail.com"     # Replace with your email
-EMAIL_PASSWORD = "your_app_password"       # Use app password for Gmail
+EMAIL_PASSWORD = "wqga vbxa teul cgcg"       # Use app password for Gmail
 
 @app.route('/send-email', methods=['POST'])
 def send_email():
