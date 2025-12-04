@@ -470,15 +470,6 @@
         <div class="grid">
           <!-- Left: tone picker -->
           <div class="tones">
-            <!-- ⭐ SEARCH BAR (paste above template list) -->
-            <input 
-              id="templateSearch"
-              class="template-search"
-              type="text"
-              placeholder="Search templates..."
-              style="padding:8px 12px; border-radius:10px; border:1px solid var(--border); margin-bottom:10px;"
-            >
-
             <div class="tone active" data-tone="friendly">
               <span>Friendly</span>
               <small>check-in</small>
@@ -502,27 +493,6 @@
             <div class="tone" data-tone="thankyou">
               <span>Thank You</span>
               <small>gratitude</small>
-            </div>
-            <!-- ⭐ NEW TEMPLATE TYPES -->
-            <div class="tone" data-tone="motivational">
-              <span>Motivational</span>
-              <small>encouragement</small>
-            </div>
-            <div class="tone" data-tone="followup">
-              <span>Follow-Up</span>
-              <small>second message</small>
-            </div>
-            <div class="tone" data-tone="outreach">
-              <span>Outreach</span>
-              <small>networking</small>
-            </div>
-            <div class="tone" data-tone="delay">
-              <span>Project Delay</span>
-              <small>urgent notice</small>
-            </div>
-            <div class="tone" data-tone="celebration">
-              <span>Celebration</span>
-              <small>success 🎉</small>
             </div>
           </div>
 
@@ -566,13 +536,6 @@
   <button class="btn-ghost btn format-btn" data-command="insertUnorderedList">• List</button>
   <button class="btn-ghost btn format-btn" data-command="insertOrderedList">1. List</button>
 </div>
-
-<!-- ⭐ IMPROVE CLARITY BUTTON -->
-<button id="clarityBtn" class="btn-ghost btn" 
-  style="margin-bottom:10px; border-radius:12px;">
-  ✨ Improve Clarity
-</button>
-
 
             <div id="email-body">
               <!-- body content injected by JS -->
@@ -660,60 +623,7 @@ Your support made a real difference in <span contenteditable="true" data-placeho
 Looking forward to working together again soon!<br><br>
 Best,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      // ⭐ NEW TEMPLATE BODIES
-      motivational: {
-        title: "Motivational Boost",
-        body: `Hi team,<br><br>
-I wanted to send some encouragement as we work toward 
-<span contenteditable="true" data-placeholder="[project milestone]"></span>.<br><br>
-Let’s keep up the amazing work — we’re getting closer every day!<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-},
-
-followup: {
-  title: "Follow-Up Message",
-  body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
-I'm following up on my earlier message about 
-<span contenteditable="true" data-placeholder="[topic]"></span>.<br><br>
-Please let me know when you get a chance!<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-},
-
-outreach: {
-  title: "Outreach Email",
-  body: `Hello,<br><br>
-I hope you're doing well! I'm reaching out because 
-<span contenteditable="true" data-placeholder="[reason for reaching out]"></span>.<br><br>
-Looking forward to connecting.<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-},
-
-delay: {
-  title: "Project Delay Notice",
-  body: `Hi team,<br><br>
-I wanted to let you know that 
-<span contenteditable="true" data-placeholder="[issue causing delay]"></span> 
-will cause a shift in our project timeline.<br><br>
-I'll keep everyone updated with next steps.<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-},
-
-celebration: {
-  title: "Celebration Email 🎉",
-  body: `Great job team!<br><br>
-We successfully reached 
-<span contenteditable="true" data-placeholder="[milestone]"></span> 
-and I’m so proud of everyone’s hard work.<br><br>
-Let’s celebrate this win! 🎉<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-}
-
+      }
     };
 
     const SUBJECT_SUGGESTIONS = {
@@ -746,34 +656,7 @@ Best,<br>
         "Thank you!",
         "Appreciation for your help",
         "Grateful for your support"
-      ],
-      // ⭐ NEW SUBJECT SUGGESTIONS
-motivational: [
-  "You’ve got this!",
-  "Motivation for the week",
-  "Keep up the great work!"
-],
-followup: [
-  "Following up on my earlier message",
-  "Second request for update",
-  "Quick follow-up"
-],
-outreach: [
-  "Reaching out to connect",
-  "Quick introduction",
-  "Request to connect"
-],
-delay: [
-  "Important: timeline update",
-  "Project delay notice",
-  "Schedule shift"
-],
-celebration: [
-  "We did it! 🎉",
-  "Celebrating our success",
-  "Congrats on the milestone!"
-]
-
+      ]
     };
 
     // Elements
@@ -781,15 +664,6 @@ celebration: [
     const previewToneChip = document.getElementById("previewToneChip");
     const emailBody = document.getElementById("email-body");
     const tones = document.querySelectorAll(".tone");
-    // ⭐ SEARCH FILTER FUNCTION
-    document.getElementById("templateSearch").addEventListener("input", e => {
-      const term = e.target.value.toLowerCase();
-      document.querySelectorAll(".tone").forEach(tone => {
-        const text = tone.innerText.toLowerCase();
-        tone.style.display = text.includes(term) ? "flex" : "none";
-      });
-    });
-
     const subjectChipsContainer = document.getElementById("subjectChips");
     const subjectField = document.getElementById("subjectField");
     const toField = document.getElementById("toField");
@@ -1020,34 +894,6 @@ formatButtons.forEach(btn => {
     emailBody.focus();
   });
 });
-
-// ⭐ IMPROVE CLARITY FUNCTION
-// ⭐ IMPROVE CLARITY FUNCTION (WORKING VERSION)
-function improveClarity() {
-  // 1. Convert HTML editor content into plain text
-  let text = emailBody.innerText;
-
-  // 2. Apply clarity rewrite rules
-  text = text.replace(/really\s+/gi, "");
-  text = text.replace(/very\s+/gi, "");
-  text = text.replace(/I just wanted to/gi, "I wanted to");
-  text = text.replace(/I'm reaching out because/gi, "I'm reaching out to");
-  text = text.trim();
-
-  // 3. Convert the cleaned text back into HTML with <br>
-  const html = text.split("\n").join("<br>");
-
-  // 4. Update editor content
-  emailBody.innerHTML = html;
-}
-
-// ⭐ APPLY IMPROVEMENT
-document.getElementById("clarityBtn").addEventListener("click", () => {
-  improveClarity();
-});
-
-
-
 
     copyBtn.addEventListener("click", async () => {
 
