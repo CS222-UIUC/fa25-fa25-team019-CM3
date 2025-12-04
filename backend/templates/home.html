@@ -225,6 +225,9 @@
         input.outerHTML = input.value;
       });
       emailBody = emailDiv.innerText;
+      emailBody = emailBody.replace(/^.*subject.*$/im, "").trim();
+      emailBody = emailBody.replace(/^.*Subject.*$/im, "").trim();
+      emailBody = emailBody.replace(/^.*SUBJECT.*$/im, "").trim();
 
       const sendBtn = document.getElementById('sendBtn');
       const status = document.getElementById('sendStatus');
