@@ -5,6 +5,7 @@ from flask_cors import CORS
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import re
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -13,6 +14,9 @@ app = Flask(__name__)
 CORS(app)
 
 GEMINI_KEY = os.getenv("GEMINI_API_KEY")
+
+def find_placeholders(text):
+    return re.findall(r'\[([^\]]+)\]', text)
 
 def generate_email(prompt, tone):
     url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
@@ -51,11 +55,25 @@ def generate_email(prompt, tone):
 @app.route("/", methods=["GET", "POST"])
 def home():
     result = None
+    placeholders = []
+    email_html = None
     if request.method == "POST":
         prompt = request.form.get("prompt")
         tone = request.form.get("tone")
         result = generate_email(prompt, tone)
-    return render_template("home.html", result=result)
+        placeholders = find_placeholders(result)
+
+        # Replace placeholders with <input> tags
+        email_html = result
+        for ph in placeholders:
+            email_html = email_html.replace(
+                f'[{ph}]',
+                f'<input type="text" name="{ph.replace(" ", "_")}" placeholder="{ph}">',
+                1
+            )
+
+    return render_template("home.html", result=result, email_html=email_html)
+
 
 @app.route("/email-templates")
 def email_templates():
