@@ -1,3 +1,6 @@
 .env
+venv/
+backend/venv/
+**/venv/
 
 backend/test_email.py
