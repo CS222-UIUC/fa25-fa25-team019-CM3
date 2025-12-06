@@ -167,10 +167,12 @@
         <button type="submit">Generate Email</button>
       </form>
 
-      {% if result %}
+      {% if email_html %}
       <div class="result">
         <h3>Generated Email:</h3>
-        <p id="emailBody">{{ result }}</p>
+        <form id="editableEmailForm">
+          <div id="emailBody">{{ email_html | safe }}</div>
+        </form>
       </div>
 
       <!-- SEND EMAIL SECTION -->
@@ -214,7 +216,19 @@
     async function sendEmail() {
       const recipient = document.getElementById('recipient').value;
       const subject = document.getElementById('subject').value;
-      const body = document.getElementById('emailBody').innerText;
+      
+      // Collect email body with all inputs
+      let emailBody = "";
+      const emailDiv = document.getElementById("emailBody");
+      emailDiv.querySelectorAll("input").forEach(input => {
+        // Replace the input tag with its value
+        input.outerHTML = input.value;
+      });
+      emailBody = emailDiv.innerText;
+      emailBody = emailBody.replace(/^.*subject.*$/im, "").trim();
+      emailBody = emailBody.replace(/^.*Subject.*$/im, "").trim();
+      emailBody = emailBody.replace(/^.*SUBJECT.*$/im, "").trim();
+
       const sendBtn = document.getElementById('sendBtn');
       const status = document.getElementById('sendStatus');
 
@@ -228,20 +242,12 @@
       status.innerHTML = '';
 
       try {
-        const response = await fetch('http://127.0.0.1:5000/send-email', {
+        const response = await fetch('/send-email', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            recipient: recipient,
-            subject: subject,
-            body: body
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ recipient, subject, body: emailBody })
         });
-
         const data = await response.json();
-
         if (data.status === 'success') {
           status.innerHTML = '<span class="success">Email sent successfully!</span>';
           document.getElementById('recipient').value = '';
