@@ -21,7 +21,7 @@ def find_placeholders(text):
 def generate_email(prompt, tone):
     url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
     headers = {
-        "x-goog-api-key": GEMINI_KEY,
+        "x-goog-api-key": GEMINI_KEY,  # Put your API key in the header
         "Content-Type": "application/json"
     }
     body = {
@@ -39,7 +39,7 @@ def generate_email(prompt, tone):
         resp.raise_for_status()
         data = resp.json()
 
-        # DEBUG: print the full response (optional)
+        # DEBUG: print full API response
         print("API Response:", data)
 
         # Extract generated email text
@@ -51,6 +51,7 @@ def generate_email(prompt, tone):
     except requests.exceptions.RequestException as e:
         print("Request failed:", e)
         return f"Error: {e}"
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
