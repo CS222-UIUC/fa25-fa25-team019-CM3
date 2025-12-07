@@ -16,6 +16,7 @@
       --white: #ffffff;
       --border: #d9e2ec;
       --shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
+
       --radius-lg: 18px;
       --radius-md: 12px;
       --radius-sm: 8px;
@@ -25,6 +26,7 @@
       --editable-focus-bg: #dbeafe;
     }
 
+    /* Dark mode */
     [data-theme="dark"] {
       --pastel-blue: #1e293b;
       --blue-100: #334155;
@@ -37,15 +39,7 @@
       --shadow: 0 6px 14px rgba(0,0,0,0.4);
     }
 
-    .format-btn b,
-    .format-btn i,
-    .format-btn u {
-      font-size: 14px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -55,42 +49,33 @@
       min-height: 100vh;
     }
 
-    /* Top nav */
+    /* Top Tabs */
     .tabs {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       padding: 14px 20px;
       background: var(--white);
-      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      z-index: 20;
-    }
-
-    .tabs-left {
-      display: flex;
-      gap: 10px;
-      align-items: center;
+      z-index: 100;
     }
 
     .tab {
       text-decoration: none;
       color: var(--ink);
       background: var(--pastel-blue);
-      padding: 7px 14px;
       border-radius: 999px;
-      font-weight: 600;
-      font-size: 14px;
+      padding: 7px 14px;
       border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      font-weight: 600;
+      transition: 0.15s ease;
     }
 
     .tab:hover {
-      transform: translateY(-1px);
       background: var(--blue-200);
+      transform: translateY(-1px);
     }
 
     .tab.active {
@@ -100,96 +85,50 @@
 
     .theme-toggle {
       padding: 7px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
       background: var(--pastel-blue);
+      border: 1px solid var(--border);
+      border-radius: 999px;
       cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      box-shadow: var(--shadow);
-      display: inline-flex;
+      font-weight: bold;
+      display: flex;
       align-items: center;
-      gap: 6px;
     }
 
     .shell {
       max-width: 1100px;
-      margin: 26px auto 32px;
-      padding: 0 18px 40px;
+      margin: 26px auto;
+      padding: 0 20px 40px;
     }
 
     .card {
       background: var(--white);
+      padding: 24px;
       border-radius: 24px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      padding: 22px 22px 26px;
-    }
-
-    h1 {
-      margin: 0 0 4px;
-      font-size: 26px;
-    }
-
-    .subtitle {
-      margin: 0 0 18px;
-      color: var(--ink-soft);
-      font-size: 14px;
-    }
-
-    details {
-      background: linear-gradient(135deg, var(--blue-100), var(--pastel-blue));
-      border-radius: 20px;
-      border: 1px dashed var(--blue-300);
-      padding: 14px 16px 18px;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--ink-soft);
-      list-style: none;
-    }
-
-    summary::-webkit-details-marker {
-      display: none;
     }
 
     .grid {
       display: grid;
       grid-template-columns: 260px 1fr;
-      gap: 18px;
-      margin-top: 16px;
-      align-items: flex-start;
+      gap: 20px;
     }
 
     .tones {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .tone {
-      background: color-mix(in srgb, var(--white) 95%, transparent);
-      border-radius: 999px;
       padding: 9px 14px;
-      font-size: 14px;
+      border-radius: 999px;
       border: 1px solid var(--border);
+      background: var(--white);
       cursor: pointer;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      box-shadow: var(--shadow);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    .tone span {
-      font-weight: 600;
-    }
-
-    .tone small {
-      color: var(--ink-soft);
-      font-size: 11px;
+      transition: 0.12s ease;
     }
 
     .tone:hover {
@@ -199,868 +138,648 @@
 
     .tone.active {
       background: var(--blue-300);
-      color: var(--white);
+      color: white;
     }
 
     .preview {
       background: var(--white);
-      border-radius: 20px;
+      padding: 18px;
       border: 1px solid var(--border);
-      padding: 18px 18px 20px;
+      border-radius: 20px;
       box-shadow: var(--shadow);
-      min-height: 180px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .preview-header {
       display: flex;
-      align-items: baseline;
       justify-content: space-between;
-      gap: 8px;
+      align-items: center;
     }
 
     .preview-title {
       font-size: 18px;
-      font-weight: 700;
+      font-weight: bold;
     }
 
     .preview-chip {
-      padding: 3px 9px;
-      border-radius: 999px;
-      font-size: 11px;
+      padding: 4px 10px;
       background: var(--blue-100);
-      color: var(--ink-soft);
+      border-radius: 10px;
       border: 1px solid var(--blue-200);
+      font-size: 11px;
     }
 
+    /* Email body + fields */
     .email-fields {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin: 4px 0 10px;
-      position: relative;
     }
 
     .email-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 13px;
+      gap: 10px;
     }
 
     .email-label {
       width: 70px;
-      font-weight: 600;
+      font-weight: bold;
       color: var(--ink-soft);
-      font-size: 12px;
     }
 
     .email-input {
       flex: 1;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
       padding: 7px 10px;
-      font-size: 13px;
-      font-family: inherit;
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-      transition: box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
-    }
-
-    .email-input:focus {
-      outline: none;
-      border-color: var(--blue-300);
-      box-shadow: 0 0 0 1px var(--blue-300);
-      background: var(--pastel-blue);
-    }
-
-    .ccbcc-toggle {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
+      border-radius: 8px;
       border: 1px solid var(--border);
-      background: var(--blue-100);
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: var(--shadow);
-      margin-left: auto;
-    }
-
-    .hidden {
-      display: none;
     }
 
     .subject-chips {
       display: flex;
-      flex-wrap: wrap;
       gap: 6px;
+      flex-wrap: wrap;
       margin-left: 70px;
-      margin-top: 2px;
     }
 
     .subject-chip {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      cursor: pointer;
-      border: 1px solid var(--border);
       background: var(--blue-100);
-      color: var(--ink-soft);
+      padding: 3px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--blue-200);
+      cursor: pointer;
+      font-size: 11px;
     }
 
-    #email-body {
-      margin-top: 4px;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    [contenteditable="true"] {
-      background-color: var(--editable-bg);
-      color: var(--editable-text);
-      border-radius: 6px;
-      padding: 1px 4px;
-      display: inline-block;
-      min-width: 60px;
-      cursor: text;
-    }
-
-    [contenteditable="true"]:focus {
-      outline: 1px solid var(--blue-300);
-      background-color: var(--editable-focus-bg);
-    }
-
-    [contenteditable="true"][data-placeholder]:empty::before {
-      content: attr(data-placeholder);
-      color: var(--ink-soft);
-      pointer-events: none;
-    }
-
-    .preview-footer {
-      margin-top: 10px;
+    /* Formatting toolbar */
+    .format-toolbar {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
-      align-items: center;
-      justify-content: space-between;
+      margin-bottom: 8px;
     }
 
     .btn {
       border-radius: 999px;
       padding: 7px 14px;
       border: none;
-      font-size: 13px;
-      font-weight: 600;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      font-weight: 600;
       box-shadow: var(--shadow);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    .btn-primary {
-      background: #2563eb;
-      color: #eff6ff;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.4);
     }
 
     .btn-ghost {
       background: var(--pastel-blue);
-      color: var(--ink);
       border: 1px solid var(--border);
     }
 
-    .btn-ghost:hover {
-      background: var(--blue-200);
+    .btn-primary {
+      background: #2563eb;
+      color: white;
     }
 
-    /* Saved templates block */
+    /* Saved templates */
     .saved-bar {
       margin-top: 8px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: rgba(148, 163, 184, 0.08);
+      padding: 8px;
       border: 1px dashed var(--border);
+      border-radius: 12px;
+      background: rgba(148,163,184,0.10);
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--ink-soft);
-    }
-
-    .saved-select {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      font-size: 11px;
-      background: var(--white);
-      max-width: 160px;
-    }
-
-    .stats {
-      display: flex;
       gap: 10px;
-      flex-wrap: wrap;
-      font-size: 11px;
+    }
+
+    #email-body {
       margin-top: 6px;
-      color: var(--ink-soft);
-    }
-
-    .stat-pill {
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.12);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-    }
-
-    .back {
-      margin-top: 18px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 13px;
-      border-radius: 999px;
-      background: var(--pastel-blue);
-      color: var(--ink);
-      border: 1px solid var(--border);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: var(--shadow);
-    }
-
-    @media (max-width: 780px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
+      line-height: 1.55;
     }
   </style>
 </head>
 
 <body>
-  <nav class="tabs">
-    <div class="tabs-left">
-      <a class="tab" href="{{ url_for('home') }}">Home</a>
-      <a class="tab active" href="{{ url_for('email_templates') }}">Email Templates</a>
-    </div>
-    <button class="theme-toggle" id="themeToggle">
-      🌙 <span id="themeLabel">Dark Mode</span>
-    </button>
-  </nav>
+<nav class="tabs">
+  <div class="tabs-left">
+    <a class="tab" href="{{ url_for('home') }}">Home</a>
+    <a class="tab active" href="{{ url_for('email_templates') }}">Email Templates</a>
+  </div>
 
-  <main class="shell">
-    <section class="card">
-      <h1>Email Templates</h1>
-      <p class="subtitle">
-        Pick a tone on the left, personalize the placeholders, then copy or save your version for later.
-      </p>
+  <button id="themeToggle" class="theme-toggle">
+    🌙 <span id="themeLabel">Dark Mode</span>
+  </button>
+</nav>
 
-      <details open>
-        <summary>▼ Click here for additional templates</summary>
+<main class="shell">
+  <section class="card">
+    <h1>Email Templates</h1>
+    <p class="subtitle">
+      Pick a tone, personalize the placeholders, then copy or save.
+    </p>
 
-        <div class="grid">
-          <!-- Left: tone picker -->
-          <div class="tones">
-            <!-- Search bar -->
-            <input
-              id="templateSearch"
-              class="template-search"
-              type="text"
-              placeholder="Search templates..."
-              style="padding:8px 12px; border-radius:10px; border:1px solid var(--border); margin-bottom:10px;"
-            >
+    <details open>
+      <summary>▼ Click here for additional templates</summary>
 
-            <div class="tone active" data-tone="friendly">
-              <span>Friendly</span>
-              <small>check-in</small>
-            </div>
-            <div class="tone" data-tone="serious">
-              <span>Serious</span>
-              <small>formal reminder</small>
-            </div>
-            <div class="tone" data-tone="business">
-              <span>Business-Professional</span>
-              <small>status update</small>
-            </div>
-            <div class="tone" data-tone="reminder">
-              <span>Reminder</span>
-              <small>quick ping</small>
-            </div>
-            <div class="tone" data-tone="apology">
-              <span>Apology</span>
-              <small>own a mistake</small>
-            </div>
-            <div class="tone" data-tone="thankyou">
-              <span>Thank You</span>
-              <small>gratitude</small>
-            </div>
-            <div class="tone" data-tone="motivational">
-              <span>Motivational</span>
-              <small>encouragement</small>
-            </div>
-            <div class="tone" data-tone="followup">
-              <span>Follow-Up</span>
-              <small>second message</small>
-            </div>
-            <div class="tone" data-tone="outreach">
-              <span>Outreach</span>
-              <small>networking</small>
-            </div>
-            <div class="tone" data-tone="delay">
-              <span>Project Delay</span>
-              <small>urgent notice</small>
-            </div>
-            <div class="tone" data-tone="celebration">
-              <span>Celebration</span>
-              <small>success 🎉</small>
-            </div>
-          </div>
+      <div class="grid">
+        <!-- LEFT — Tone picker -->
+        <div class="tones">
+          <!-- Search bar -->
+          <input
+            id="templateSearch"
+            type="text"
+            placeholder="Search templates..."
+            style="padding:8px 12px;border-radius:10px;border:1px solid var(--border);margin-bottom:10px;"
+          >
 
-          <!-- Right: preview / email editor -->
-          <div class="preview" id="preview">
-            <div class="preview-header">
-              <div>
-                <div class="preview-title" id="previewTitle">Friendly Team Check-In</div>
-                <div class="preview-chip" id="previewToneChip">Tone: Friendly</div>
-              </div>
-            </div>
-
-            <div class="email-fields">
-              <div class="email-row">
-                <div class="email-label">To:</div>
-                <input id="toField" class="email-input" type="email" placeholder="recipient@example.com">
-                <button class="ccbcc-toggle" id="ccbccToggle">+Cc/Bcc</button>
-              </div>
-
-              <div id="extraFields" class="hidden">
-                <div class="email-row">
-                  <div class="email-label">Cc:</div>
-                  <input id="ccField" class="email-input" type="text" placeholder="cc@example.com">
-                </div>
-                <div class="email-row">
-                  <div class="email-label">Bcc:</div>
-                  <input id="bccField" class="email-input" type="text" placeholder="bcc@example.com">
-                </div>
-              </div>
-
-              <div class="email-row">
-                <div class="email-label">Subject:</div>
-                <input id="subjectField" class="email-input" type="text" placeholder="Enter subject here">
-              </div>
-              <div class="subject-chips" id="subjectChips"></div>
-            </div>
-
-            <div class="format-toolbar" style="display:flex; gap:8px; margin-bottom:8px;">
-              <button class="btn-ghost btn format-btn" data-command="bold"><b>B</b></button>
-              <button class="btn-ghost btn format-btn" data-command="italic"><i>I</i></button>
-              <button class="btn-ghost btn format-btn" data-command="underline"><u>U</u></button>
-              <button class="btn-ghost btn format-btn" data-command="insertUnorderedList">• List</button>
-              <button class="btn-ghost btn format-btn" data-command="insertOrderedList">1. List</button>
-            </div>
-
-            <button id="clarityBtn" class="btn-ghost btn" style="margin-bottom:10px; border-radius:12px;">
-              ✨ Improve Clarity
-            </button>
-
-            <div id="email-body">
-              <!-- body content injected by JS -->
-            </div>
-
-            <div class="saved-bar">
-              <span style="font-weight:600;">Saved:</span>
-              <select id="savedSelect" class="saved-select">
-                <option value="">(none)</option>
-              </select>
-              <button class="btn-ghost btn" id="saveCurrentBtn">Save current</button>
-              <button class="btn-ghost btn" id="deleteSavedBtn">Delete selected</button>
-            </div>
-
-            <div class="preview-footer">
-              <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                <button class="btn btn-primary" id="copyBtn">Copy Email</button>
-                <button class="btn btn-ghost" id="clearBtn">Clear fields</button>
-              </div>
-              <div class="stats">
-                <div class="stat-pill" id="templatesCount">Custom templates: 0</div>
-                <div class="stat-pill" id="lastCopied">Last copied: —</div>
-              </div>
-            </div>
-          </div>
+          <div class="tone active" data-tone="friendly"><span>Friendly</span><small>check-in</small></div>
+          <div class="tone" data-tone="serious"><span>Serious</span><small>formal reminder</small></div>
+          <div class="tone" data-tone="business"><span>Business</span><small>status update</small></div>
+          <div class="tone" data-tone="reminder"><span>Reminder</span><small>quick ping</small></div>
+          <div class="tone" data-tone="apology"><span>Apology</span><small>own mistake</small></div>
+          <div class="tone" data-tone="thankyou"><span>Thank You</span><small>gratitude</small></div>
+          <div class="tone" data-tone="motivational"><span>Motivational</span><small>encouragement</small></div>
+          <div class="tone" data-tone="followup"><span>Follow-Up</span><small>second message</small></div>
+          <div class="tone" data-tone="outreach"><span>Outreach</span><small>networking</small></div>
+          <div class="tone" data-tone="delay"><span>Project Delay</span><small>notice</small></div>
+          <div class="tone" data-tone="celebration"><span>Celebration</span><small>🎉 success</small></div>
         </div>
-      </details>
 
-      <a class="back" href="{{ url_for('home') }}">← Back to Home</a>
-    </section>
-  </main>
+        <!-- RIGHT — Preview panel -->
+        <div class="preview">
 
-  <script>
-    // -----------------------
-    // Template definitions
-    // -----------------------
-    const EXAMPLES = {
-      friendly: {
-        title: "Friendly Team Check-In",
-        body: `Hi everyone,<br><br>
-I hope you’re all doing well! I just wanted to check in with our upcoming deadline for <span contenteditable="true" data-placeholder="[project name]"></span> in <span contenteditable="true" data-placeholder="[class name]"></span>, which is due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
-I’ve completed my part of <span contenteditable="true" data-placeholder="[your completed task]"></span>, and I noticed we still need to finish <span contenteditable="true" data-placeholder="[remaining tasks]"></span>.<br><br>
-Please let me know if there’s anything I can do to help.<br><br>
+          <!-- TITLE + TONE CHIP -->
+          <div class="preview-header">
+            <div>
+              <div id="previewTitle" class="preview-title">Friendly Team Check-In</div>
+              <div id="previewToneChip" class="preview-chip">Tone: Friendly</div>
+            </div>
+          </div>
+
+          <!-- EMAIL FIELDS (To, Cc, Bcc, Subject) -->
+          <div class="email-fields">
+            <div class="email-row">
+              <div class="email-label">To:</div>
+              <input id="toField" class="email-input" type="email" placeholder="recipient@example.com">
+              <button id="ccbccToggle" class="btn-ghost btn" style="padding:4px 10px;font-size:11px;">+Cc/Bcc</button>
+            </div>
+
+            <div id="extraFields" class="hidden">
+              <div class="email-row">
+                <div class="email-label">Cc:</div>
+                <input id="ccField" class="email-input" type="text" placeholder="cc@example.com">
+              </div>
+              <div class="email-row">
+                <div class="email-label">Bcc:</div>
+                <input id="bccField" class="email-input" type="text" placeholder="bcc@example.com">
+              </div>
+            </div>
+
+            <div class="email-row">
+              <div class="email-label">Subject:</div>
+              <input id="subjectField" class="email-input" type="text" placeholder="Enter subject here">
+            </div>
+
+            <!-- Dynamically generated subject chips -->
+            <div id="subjectChips" class="subject-chips"></div>
+          </div>
+
+          <!-- FORMAT TOOLBAR (Bold, Italic, Underline, Lists) -->
+          <div class="format-toolbar">
+            <button class="btn-ghost btn format-btn" data-command="bold"><b>B</b></button>
+            <button class="btn-ghost btn format-btn" data-command="italic"><i>I</i></button>
+            <button class="btn-ghost btn format-btn" data-command="underline"><u>U</u></button>
+            <button class="btn-ghost btn format-btn" data-command="insertUnorderedList">• List</button>
+            <button class="btn-ghost btn format-btn" data-command="insertOrderedList">1. List</button>
+          </div>
+
+          <!-- REWRITE DROPDOWN (must appear FIRST) -->
+          <div style="margin-bottom:10px;">
+            <label><strong>✨ Rewrite Email:</strong></label>
+            <select id="rewriteSelect" style="margin-left:8px;padding:6px;border-radius:8px;border:1px solid var(--border);">
+              <option value="">Select option…</option>
+              <option value="formal">Make more formal</option>
+              <option value="casual">Make more casual</option>
+              <option value="shorter">Shorten email</option>
+              <option value="longer">Expand email</option>
+              <option value="clearer">Improve clarity</option>
+              <option value="grammar">Fix grammar</option>
+            </select>
+            <button id="rewriteBtn" class="btn-ghost btn" style="margin-left:10px;">Rewrite</button>
+          </div>
+
+          <!-- IMPROVE CLARITY BUTTON -->
+          <button id="clarityBtn" class="btn-ghost btn" style="margin-bottom:10px;border-radius:12px;">
+            ✨ Improve Clarity
+          </button>
+
+          <!-- EMAIL BODY -->
+          <div id="email-body"></div>
+
+          <!-- SAVED TEMPLATES BAR -->
+          <div class="saved-bar">
+            <span style="font-weight:600;">Saved:</span>
+            <select id="savedSelect" class="saved-select" style="padding:4px 10px;border-radius:10px;">
+              <option value="">(none)</option>
+            </select>
+            <button id="saveCurrentBtn" class="btn-ghost btn">Save current</button>
+            <button id="deleteSavedBtn" class="btn-ghost btn">Delete selected</button>
+          </div>
+
+          <!-- FOOTER BUTTONS -->
+          <div class="preview-footer" style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+            <div style="display:flex;gap:8px;">
+              <button id="copyBtn" class="btn btn-primary">Copy Email</button>
+              <button id="clearBtn" class="btn btn-ghost">Clear fields</button>
+            </div>
+
+            <div class="stats" style="display:flex;gap:8px;font-size:11px;color:var(--ink-soft);">
+              <div id="templatesCount">Custom templates: 0</div>
+              <div id="lastCopied">Last copied: —</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </details>
+
+    <a class="tab" href="{{ url_for('home') }}" style="margin-top:20px;display:inline-block;">← Back to Home</a>
+  </section>
+</main>
+<script>
+/* ---------------------------------------
+   TEMPLATE DEFINITIONS
+--------------------------------------- */
+const EXAMPLES = {
+  friendly: {
+    title: "Friendly Team Check-In",
+    body: `Hi everyone,<br><br>
+I hope you're all doing well! I wanted to check in regarding <span contenteditable="true" data-placeholder="[project name]"></span> for <span contenteditable="true" data-placeholder="[class name]"></span>, due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
+I've completed <span contenteditable="true" data-placeholder="[your completed task]"></span>, and I noticed we still need to finish <span contenteditable="true" data-placeholder="[remaining tasks]"></span>.<br><br>
+Please let me know if there's anything I can help with.<br><br>
 Sincerely,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      serious: {
-        title: "Formal Project Follow-Up",
-        body: `Hello team,<br><br>
-This is a reminder regarding our upcoming submission for <span contenteditable="true" data-placeholder="[project name]"></span> in <span contenteditable="true" data-placeholder="[course name]"></span>, due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
-Please ensure all remaining sections are completed by <span contenteditable="true" data-placeholder="[target date]"></span> so we have time for review and compilation.<br><br>
-Best regards,<br>
+  },
+
+  serious: {
+    title: "Formal Project Reminder",
+    body: `Hello team,<br><br>
+This is a reminder about our submission for <span contenteditable="true" data-placeholder="[project name]"></span> in <span contenteditable="true" data-placeholder="[course name]"></span>, due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
+Please ensure remaining tasks are completed by <span contenteditable="true" data-placeholder="[target date]"></span>.<br><br>
+Best,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      business: {
-        title: "Business-Professional Update",
-        body: `Dear Team,<br><br>
-I wanted to share a quick update on <span contenteditable="true" data-placeholder="[project name]"></span>. We’ve successfully completed <span contenteditable="true" data-placeholder="[completed milestone]"></span> and will now shift focus to <span contenteditable="true" data-placeholder="[next steps]"></span>.<br><br>
+  },
+
+  business: {
+    title: "Business Status Update",
+    body: `Dear Team,<br><br>
+Here's a quick update on <span contenteditable="true" data-placeholder="[project name]"></span>. We completed <span contenteditable="true" data-placeholder="[milestone]"></span> and next we'll focus on <span contenteditable="true" data-placeholder="[next step]"></span>.<br><br>
 Please confirm your availability for our next check-in on <span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
-Sincerely,<br>
+Thanks,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      reminder: {
-        title: "Friendly Reminder Email",
-        body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
-Just a quick reminder about <span contenteditable="true" data-placeholder="[event/task]"></span> scheduled for <span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
-If you need any help or want to reschedule, please let me know.<br><br>
+  },
+
+  reminder: {
+    title: "Friendly Reminder",
+    body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
+Just a quick reminder about <span contenteditable="true" data-placeholder="[event/task]"></span> happening on <span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
 Best,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      apology: {
-        title: "Apology Email",
-        body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
-I wanted to follow up and apologize for <span contenteditable="true" data-placeholder="[specific issue or delay]"></span>. It was never my intention to cause any inconvenience, and I really appreciate your patience.<br><br>
-Going forward, I’ll make sure to <span contenteditable="true" data-placeholder="[describe corrective action]"></span> so this doesn’t happen again.<br><br>
-Thank you again for your understanding.<br><br>
-Sincerely,<br>
+  },
+
+  apology: {
+    title: "Apology Email",
+    body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
+I sincerely apologize for <span contenteditable="true" data-placeholder="[issue]"></span>. I appreciate your patience and will ensure <span contenteditable="true" data-placeholder="[corrective action]"></span> moving forward.<br><br>
+Thank you,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      thankyou: {
-        title: "Thank You / Appreciation Email",
-        body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
-I just wanted to thank you for <span contenteditable="true" data-placeholder="[specific help, contribution, or collaboration]"></span>.<br><br>
-Your support made a real difference in <span contenteditable="true" data-placeholder="[project/event name]"></span>, and I appreciate the time and effort you put in.<br><br>
-Looking forward to working together again soon!<br><br>
+  },
+
+  thankyou: {
+    title: "Thank You Message",
+    body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
+Thank you so much for <span contenteditable="true" data-placeholder="[specific help]"></span>. Your support made a huge difference.<br><br>
 Best,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      motivational: {
-        title: "Motivational Boost",
-        body: `Hi team,<br><br>
-I wanted to send some encouragement as we work toward <span contenteditable="true" data-placeholder="[project milestone]"></span>.<br><br>
-Let’s keep up the amazing work — we’re getting closer every day!<br><br>
+  },
+
+  motivational: {
+    title: "Motivational Boost",
+    body: `Hi team,<br><br>
+Just wanted to send some encouragement as we push toward <span contenteditable="true" data-placeholder="[milestone]"></span>.<br><br>
+We've got this!<br><br>
+— <span contenteditable="true" data-placeholder="[Your Name]"></span>`
+  },
+
+  followup: {
+    title: "Follow-Up Email",
+    body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
+I'm following up on <span contenteditable="true" data-placeholder="[topic]"></span>. Let me know when you get a chance!<br><br>
+Thanks,<br>
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+  },
+
+  outreach: {
+    title: "Outreach Email",
+    body: `Hello,<br><br>
+I'm reaching out because <span contenteditable="true" data-placeholder="[reason]"></span>.<br><br>
 Best,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      followup: {
-        title: "Follow-Up Message",
-        body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
-I'm following up on my earlier message about <span contenteditable="true" data-placeholder="[topic]"></span>.<br><br>
-Please let me know when you get a chance!<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      outreach: {
-        title: "Outreach Email",
-        body: `Hello,<br><br>
-I hope you're doing well! I'm reaching out because <span contenteditable="true" data-placeholder="[reason for reaching out]"></span>.<br><br>
-Looking forward to connecting.<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      delay: {
-        title: "Project Delay Notice",
-        body: `Hi team,<br><br>
-I wanted to let you know that <span contenteditable="true" data-placeholder="[issue causing delay]"></span> will cause a shift in our project timeline.<br><br>
-I'll keep everyone updated with next steps.<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      },
-      celebration: {
-        title: "Celebration Email 🎉",
-        body: `Great job team!<br><br>
-We successfully reached <span contenteditable="true" data-placeholder="[milestone]"></span> and I’m so proud of everyone’s hard work.<br><br>
-Let’s celebrate this win! 🎉<br><br>
-Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-      }
-    };
+  },
 
-    const SUBJECT_SUGGESTIONS = {
-      friendly: [
-        "Quick check-in about our project",
-        "Touching base on our deadline",
-        "Team status update"
-      ],
-      serious: [
-        "Action needed: upcoming submission",
-        "Reminder: project deadline approaching",
-        "Important: final edits required"
-      ],
-      business: [
-        "Weekly project status update",
-        "Next steps for our collaboration",
-        "Follow-up on earlier discussion"
-      ],
-      reminder: [
-        "Friendly reminder 😊",
-        "Reminder about our meeting",
-        "Checking in about your availability"
-      ],
-      apology: [
-        "My apologies",
-        "Apologies for the delay",
-        "Following up with an apology"
-      ],
-      thankyou: [
-        "Thank you!",
-        "Appreciation for your help",
-        "Grateful for your support"
-      ],
-      motivational: [
-        "You’ve got this!",
-        "Motivation for the week",
-        "Keep up the great work!"
-      ],
-      followup: [
-        "Following up on my earlier message",
-        "Second request for update",
-        "Quick follow-up"
-      ],
-      outreach: [
-        "Reaching out to connect",
-        "Quick introduction",
-        "Request to connect"
-      ],
-      delay: [
-        "Important: timeline update",
-        "Project delay notice",
-        "Schedule shift"
-      ],
-      celebration: [
-        "We did it! 🎉",
-        "Celebrating our success",
-        "Congrats on the milestone!"
-      ]
-    };
+  delay: {
+    title: "Project Delay Notice",
+    body: `Hi team,<br><br>
+Due to <span contenteditable="true" data-placeholder="[delay reason]"></span>, our project timeline will shift.<br><br>
+I'll send updates soon.<br><br>
+— <span contenteditable="true" data-placeholder="[Your Name]"></span>`
+  },
 
-    // Elements
-    const previewTitle = document.getElementById("previewTitle");
-    const previewToneChip = document.getElementById("previewToneChip");
-    const emailBody = document.getElementById("email-body");
-    const tones = document.querySelectorAll(".tone");
-    const templateSearch = document.getElementById("templateSearch");
+  celebration: {
+    title: "Celebration Email 🎉",
+    body: `Great work team!<br><br>
+We successfully reached <span contenteditable="true" data-placeholder="[milestone]"></span> and I’m proud of everyone.<br><br>
+Celebrate this win! 🎉<br><br>
+— <span contenteditable="true" data-placeholder="[Your Name]"></span>`
+  }
+};
 
-    // Search filter for tones
-    if (templateSearch) {
-      templateSearch.addEventListener("input", (e) => {
-        const term = e.target.value.toLowerCase();
-        document.querySelectorAll(".tone").forEach(tone => {
-          const text = tone.innerText.toLowerCase();
-          tone.style.display = text.includes(term) ? "flex" : "none";
-        });
-      });
-    }
+/* ---------------------------------------
+   SUBJECT SUGGESTIONS
+--------------------------------------- */
+const SUBJECT_SUGGESTIONS = {
+  friendly: ["Quick check-in", "Touching base", "Small update"],
+  serious: ["Important deadline reminder", "Action needed", "Submission approaching"],
+  business: ["Project status update", "Weekly update", "Next steps"],
+  reminder: ["Friendly reminder", "Reminder about our meeting", "Quick reminder"],
+  apology: ["Apologies", "I'm sorry about this", "Apology regarding issue"],
+  thankyou: ["Thank you!", "Appreciation", "Thanks again"],
+  motivational: ["You’ve got this!", "Keep going", "Motivation boost"],
+  followup: ["Following up", "Checking in again", "Second request"],
+  outreach: ["Reaching out", "Quick introduction", "Request to connect"],
+  delay: ["Timeline update", "Project delay notice", "Important schedule change"],
+  celebration: ["We did it! 🎉", "Congrats team!", "Celebrating success"]
+};
 
-    const subjectChipsContainer = document.getElementById("subjectChips");
-    const subjectField = document.getElementById("subjectField");
-    const toField = document.getElementById("toField");
-    const ccbccToggle = document.getElementById("ccbccToggle");
-    const extraFields = document.getElementById("extraFields");
+/* ---------------------------------------
+   DOM ELEMENTS
+--------------------------------------- */
+const previewTitle = document.getElementById("previewTitle");
+const previewToneChip = document.getElementById("previewToneChip");
+const emailBody = document.getElementById("email-body");
+const tones = document.querySelectorAll(".tone");
 
-    const copyBtn = document.getElementById("copyBtn");
-    const clearBtn = document.getElementById("clearBtn");
+const subjectField = document.getElementById("subjectField");
+const subjectChipsContainer = document.getElementById("subjectChips");
 
-    const saveCurrentBtn = document.getElementById("saveCurrentBtn");
-    const deleteSavedBtn = document.getElementById("deleteSavedBtn");
-    const savedSelect = document.getElementById("savedSelect");
+const toField = document.getElementById("toField");
+const ccbccToggle = document.getElementById("ccbccToggle");
+const extraFields = document.getElementById("extraFields");
 
-    const templatesCount = document.getElementById("templatesCount");
-    const lastCopied = document.getElementById("lastCopied");
+const copyBtn = document.getElementById("copyBtn");
+const clearBtn = document.getElementById("clearBtn");
 
-    // -----------------------
-    // Dark mode
-    // -----------------------
-    const themeToggle = document.getElementById("themeToggle");
-    const themeLabel = document.getElementById("themeLabel");
+const saveCurrentBtn = document.getElementById("saveCurrentBtn");
+const deleteSavedBtn = document.getElementById("deleteSavedBtn");
+const savedSelect = document.getElementById("savedSelect");
 
-    function applyTheme(theme) {
-      if (theme === "dark") {
-        document.querySelector("html").setAttribute("data-theme", "dark");
-        themeLabel.textContent = "Light Mode";
-        themeToggle.firstChild.textContent = "☀️";
-      } else {
-        document.documentElement.removeAttribute("data-theme");
-        themeLabel.textContent = "Dark Mode";
-        themeToggle.firstChild.textContent = "🌙";
-      }
-    }
+const templateSearch = document.getElementById("templateSearch");
 
-    const storedTheme = localStorage.getItem("theme");
-    applyTheme(storedTheme || "light");
+/* ---------------------------------------
+   DARK MODE
+--------------------------------------- */
+const themeToggle = document.getElementById("themeToggle");
+const themeLabel = document.getElementById("themeLabel");
 
-    themeToggle.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-      const next = current === "dark" ? "light" : "dark";
-      localStorage.setItem("theme", next);
-      applyTheme(next);
+function applyTheme(theme) {
+  if (theme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    themeLabel.textContent = "Light Mode";
+    themeToggle.firstChild.textContent = "☀️";
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    themeLabel.textContent = "Dark Mode";
+    themeToggle.firstChild.textContent = "🌙";
+  }
+}
+
+const savedTheme = localStorage.getItem("theme") || "light";
+applyTheme(savedTheme);
+
+themeToggle.addEventListener("click", () => {
+  const newMode =
+    document.documentElement.getAttribute("data-theme") === "dark"
+      ? "light"
+      : "dark";
+  localStorage.setItem("theme", newMode);
+  applyTheme(newMode);
+});
+
+/* ---------------------------------------
+   TEMPLATE SWITCHING
+--------------------------------------- */
+function renderSubjectChips(toneKey) {
+  subjectChipsContainer.innerHTML = "";
+  (SUBJECT_SUGGESTIONS[toneKey] || []).forEach(text => {
+    const chip = document.createElement("button");
+    chip.className = "subject-chip";
+    chip.textContent = text;
+    chip.addEventListener("click", () => {
+      subjectField.value = text;
     });
+    subjectChipsContainer.appendChild(chip);
+  });
+}
 
-    // -----------------------
-    // Tone switching
-    // -----------------------
-    function renderSubjectChips(toneKey) {
-      subjectChipsContainer.innerHTML = "";
-      const suggestions = SUBJECT_SUGGESTIONS[toneKey] || [];
-      suggestions.forEach(text => {
-        const chip = document.createElement("button");
-        chip.type = "button";
-        chip.className = "subject-chip";
-        chip.textContent = text;
-        chip.addEventListener("click", () => {
-          subjectField.value = text;
-        });
-        subjectChipsContainer.appendChild(chip);
-      });
-    }
+function setTone(key) {
+  const data = EXAMPLES[key];
+  previewTitle.textContent = data.title;
+  previewToneChip.textContent = "Tone: " + key.charAt(0).toUpperCase() + key.slice(1);
+  emailBody.innerHTML = data.body;
 
-    function setTone(key) {
-      const data = EXAMPLES[key];
-      if (!data) return;
+  tones.forEach(t => t.classList.toggle("active", t.dataset.tone === key));
+  renderSubjectChips(key);
+}
 
-      tones.forEach(t => t.classList.toggle("active", t.dataset.tone === key));
-      previewTitle.textContent = data.title;
-      previewToneChip.textContent = "Tone: " + data.title.split(" ")[0];
-      emailBody.innerHTML = data.body;
+tones.forEach(tone =>
+  tone.addEventListener("click", () => setTone(tone.dataset.tone))
+);
 
-      renderSubjectChips(key);
-    }
+setTone("friendly");
 
-    tones.forEach(toneEl => {
-      toneEl.addEventListener("click", () => {
-        const key = toneEl.dataset.tone;
-        setTone(key);
-      });
-    });
+/* ---------------------------------------
+   SEARCH BAR — FILTER TEMPLATES
+--------------------------------------- */
+templateSearch.addEventListener("input", (e) => {
+  const term = e.target.value.toLowerCase();
+  tones.forEach(tone => {
+    tone.style.display = tone.innerText.toLowerCase().includes(term)
+      ? "flex"
+      : "none";
+  });
+});
 
-    // initial tone
-    setTone("friendly");
+/* ---------------------------------------
+   CC / BCC TOGGLE
+--------------------------------------- */
+ccbccToggle.addEventListener("click", () => {
+  extraFields.classList.toggle("hidden");
+  ccbccToggle.textContent = extraFields.classList.contains("hidden")
+    ? "+Cc/Bcc"
+    : "Hide Cc/Bcc";
+});
 
-    // -----------------------
-    // Cc/Bcc toggle
-    // -----------------------
-    ccbccToggle.addEventListener("click", () => {
-      const isHidden = extraFields.classList.contains("hidden");
-      extraFields.classList.toggle("hidden");
-      ccbccToggle.textContent = isHidden ? "Hide Cc/Bcc" : "+Cc/Bcc";
-    });
+/* ---------------------------------------
+   FORMAT BUTTONS
+--------------------------------------- */
+document.querySelectorAll(".format-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    document.execCommand(btn.dataset.command, false, null);
+    emailBody.focus();
+  });
+});
 
-    // -----------------------
-    // Contenteditable helper:
-    // clear placeholder-like text
-    // -----------------------
-    emailBody.addEventListener("focusin", (e) => {
-      if (e.target.hasAttribute("contenteditable")) {
-        const txt = e.target.innerText.trim();
-        if (txt.startsWith("[") && txt.endsWith("]")) {
-          e.target.innerText = "";
-        }
-      }
-    });
+/* ---------------------------------------
+   IMPROVE CLARITY BUTTON
+--------------------------------------- */
+function improveClarity() {
+  let text = emailBody.innerText;
 
-    // -----------------------
-    // Saved custom templates (localStorage)
-    // -----------------------
-    const STORAGE_KEY = "cs222_email_templates_v1";
+  text = text.replace(/\breally\b/gi, "");
+  text = text.replace(/\bvery\b/gi, "");
+  text = text.replace(/I just wanted to/gi, "I wanted to");
+  text = text.trim();
 
-    function loadSavedTemplates() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return {};
-        return JSON.parse(raw);
-      } catch {
-        return {};
-      }
-    }
+  emailBody.innerHTML = text.replace(/\n/g, "<br>");
+}
 
-    function saveTemplatesToStorage(templates) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(templates));
-      updateStats(templates);
-    }
+document.getElementById("clarityBtn").addEventListener("click", improveClarity);
 
-    function updateSavedSelect(templates) {
-      savedSelect.innerHTML = `<option value="">(none)</option>`;
-      Object.keys(templates).forEach(name => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        savedSelect.appendChild(opt);
-      });
-    }
+/* ---------------------------------------
+   AI REWRITE FEATURE
+--------------------------------------- */
+document.getElementById("rewriteBtn").addEventListener("click", async () => {
+  const mode = document.getElementById("rewriteSelect").value;
+  if (!mode) {
+    alert("Please select a rewrite option.");
+    return;
+  }
 
-    function updateStats(templates) {
-      const count = Object.keys(templates).length;
-      templatesCount.textContent = "Custom templates: " + count;
+  const response = await fetch("/rewrite", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      text: emailBody.innerHTML,
+      mode
+    }),
+  });
 
-      const last = localStorage.getItem(STORAGE_KEY + "_lastCopied");
-      lastCopied.textContent = "Last copied: " + (last || "—");
-    }
+  const data = await response.json();
+  if (data.rewritten) {
+    emailBody.innerHTML = data.rewritten;
+  } else {
+    alert("Rewrite failed.");
+  }
+});
 
-    let savedTemplates = loadSavedTemplates();
-    updateSavedSelect(savedTemplates);
-    updateStats(savedTemplates);
+/* ---------------------------------------
+   SAVE TEMPLATES (LocalStorage)
+--------------------------------------- */
+const STORAGE_KEY = "email_templates_saved_v1";
 
-    saveCurrentBtn.addEventListener("click", () => {
-      const name = prompt("Name for this version (e.g., 'Serious prof reminder'):");
-      if (!name) return;
+function loadSaved() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+}
 
-      const bodyHTML = emailBody.innerHTML;
-      const subject = subjectField.value || "";
-      const to = toField.value || "";
+function saveToStorage(obj) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+}
 
-      savedTemplates[name] = { body: bodyHTML, subject, to };
-      saveTemplatesToStorage(savedTemplates);
-      updateSavedSelect(savedTemplates);
-      alert("Saved!");
-    });
+let savedTemplates = loadSaved();
+updateSavedSelect();
 
-    deleteSavedBtn.addEventListener("click", () => {
-      const key = savedSelect.value;
-      if (!key) return;
-      if (!confirm(`Delete saved template "${key}"?`)) return;
-      delete savedTemplates[key];
-      saveTemplatesToStorage(savedTemplates);
-      updateSavedSelect(savedTemplates);
-      savedSelect.value = "";
-    });
+function updateSavedSelect() {
+  savedSelect.innerHTML = `<option value="">(none)</option>`;
+  Object.keys(savedTemplates).forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    savedSelect.appendChild(opt);
+  });
+}
 
-    savedSelect.addEventListener("change", () => {
-      const key = savedSelect.value;
-      if (!key || !savedTemplates[key]) return;
-      const data = savedTemplates[key];
-      emailBody.innerHTML = data.body || "";
-      subjectField.value = data.subject || "";
-      toField.value = data.to || "";
-      updateStats(savedTemplates);
-    });
+saveCurrentBtn.addEventListener("click", () => {
+  const name = prompt("Name this version:");
+  if (!name) return;
 
-    // -----------------------
-    // Copy / Clear
-    // -----------------------
-    function getPlainEmailText() {
-      const lines = [];
+  savedTemplates[name] = {
+    to: toField.value,
+    subject: subjectField.value,
+    body: emailBody.innerHTML
+  };
 
-      const to = toField.value.trim();
-      const subject = subjectField.value.trim();
+  saveToStorage(savedTemplates);
+  updateSavedSelect();
+  alert("Saved!");
+});
 
-      if (to) lines.push("To: " + to);
-      if (subject) lines.push("Subject: " + subject);
-      if (to || subject) lines.push("");
+deleteSavedBtn.addEventListener("click", () => {
+  const key = savedSelect.value;
+  if (!key) return;
 
-      const bodyText = emailBody.innerText.replace(/\n{3,}/g, "\n\n");
-      lines.push(bodyText);
+  delete savedTemplates[key];
+  saveToStorage(savedTemplates);
+  updateSavedSelect();
+});
 
-      return lines.join("\n");
-    }
+/* LOAD SELECTED TEMPLATE */
+savedSelect.addEventListener("change", () => {
+  const key = savedSelect.value;
+  if (!key) return;
 
-    function findUnfilledPlaceholders() {
-      const placeholderRegex = /\[[^\]]+\]/g;
-      const html = emailBody.innerHTML;
-      const matches = html.match(placeholderRegex);
-      return matches || [];
-    }
+  const data = savedTemplates[key];
+  toField.value = data.to || "";
+  subjectField.value = data.subject || "";
+  emailBody.innerHTML = data.body || "";
+});
 
-    const formatButtons = document.querySelectorAll(".format-btn");
+/* ---------------------------------------
+   COPY EMAIL
+--------------------------------------- */
+function getPlainText() {
+  const lines = [];
 
-    formatButtons.forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const command = btn.dataset.command;
-        document.execCommand(command, false, null);
-        emailBody.focus();
-      });
-    });
+  if (toField.value.trim()) lines.push("To: " + toField.value.trim());
+  if (subjectField.value.trim()) lines.push("Subject: " + subjectField.value.trim());
+  if (lines.length) lines.push("");
 
-    // -----------------------
-    // Improve Clarity
-    // -----------------------
-    function improveClarity() {
-      // Get plain text version
-      let text = emailBody.innerText;
+  lines.push(emailBody.innerText);
+  return lines.join("\n");
+}
 
-      // Simple clarity rules
-      text = text.replace(/really\s+/gi, "");
-      text = text.replace(/very\s+/gi, "");
-      text = text.replace(/I just wanted to/gi, "I wanted to");
-      text = text.replace(/I'm reaching out because/gi, "I'm reaching out to");
-      text = text.trim();
+copyBtn.addEventListener("click", async () => {
+  const text = getPlainText();
+  await navigator.clipboard.writeText(text);
 
-      // Convert back to HTML, preserving line breaks
-      const html = text.split("\n").join("<br>");
-      emailBody.innerHTML = html;
-    }
+  copyBtn.textContent = "Copied!";
+  copyBtn.style.background = "#16a34a";
 
-    document.getElementById("clarityBtn").addEventListener("click", () => {
-      improveClarity();
-    });
+  setTimeout(() => {
+    copyBtn.textContent = "Copy Email";
+    copyBtn.style.background = "#2563eb";
+  }, 1500);
+});
 
-    // -----------------------
-    // Copy & Clear buttons
-    // -----------------------
-    copyBtn.addEventListener("click", async () => {
-      const unfilled = findUnfilledPlaceholders();
+/* ---------------------------------------
+   CLEAR FIELDS
+--------------------------------------- */
+clearBtn.addEventListener("click", () => {
+  toField.value = "";
+  subjectField.value = "";
+  extraFields.classList.add("hidden");
+  setTone("friendly");
+});
+</script>
 
-      if (unfilled.length > 0) {
-        const list = unfilled.join(", ");
-        const proceed = confirm(
-          `⚠️ You still have unfilled placeholders:\n\n${list}\n\nCopy anyway?`
-        );
-
-        if (!proceed) {
-          return;
-        }
-      }
-
-      const text = getPlainEmailText();
-      try {
-        await navigator.clipboard.writeText(text);
-        const now = new Date();
-        const stamp = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-        localStorage.setItem(STORAGE_KEY + "_lastCopied", stamp);
-        updateStats(savedTemplates);
-
-        copyBtn.textContent = "Copied!";
-        copyBtn.style.backgroundColor = "#16a34a";
-        setTimeout(() => {
-          copyBtn.textContent = "Copy Email";
-          copyBtn.style.backgroundColor = "#2563eb";
-        }, 1600);
-      } catch (err) {
-        alert("Unable to copy automatically. You can still select and copy manually.");
-      }
-    });
-
-    clearBtn.addEventListener("click", () => {
-      toField.value = "";
-      subjectField.value = "";
-      extraFields.classList.add("hidden");
-      ccbccToggle.textContent = "+Cc/Bcc";
-
-      const activeTone = document.querySelector(".tone.active");
-      const key = activeTone ? activeTone.dataset.tone : "friendly";
-      setTone(key);
-    });
-  </script>
 </body>
 </html>
