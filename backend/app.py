@@ -79,6 +79,33 @@ def home():
 def email_templates():
     return render_template("email_templates.html")
 
+@app.route("/rewrite", methods=["POST"])
+def rewrite_email():
+    data = request.get_json()
+    text = data.get("text", "")
+    mode = data.get("mode", "")
+
+    # Simple rule-based rewriting (no API keys needed)
+    # Replace with your OpenAI integration if desired
+
+    if mode == "formal":
+        rewritten = text.replace("I'm", "I am").replace("Hi", "Hello").replace("Thanks", "Thank you")
+    elif mode == "casual":
+        rewritten = text.replace("Hello", "Hey").replace("Sincerely,", "Best,").replace("I am", "I'm")
+    elif mode == "shorter":
+        rewritten = text[:300] + "..."
+    elif mode == "longer":
+        rewritten = text + "\n\nLet me know if you'd like more details!"
+    elif mode == "clearer":
+        rewritten = text.replace(",", ", ").replace("  ", " ")
+    elif mode == "grammar":
+        rewritten = text.replace("im ", "I'm ").replace("dont", "don't")
+    else:
+        rewritten = text
+
+    return {"rewritten": rewritten}
+
+
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
