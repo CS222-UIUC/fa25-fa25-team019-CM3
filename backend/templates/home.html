@@ -224,6 +224,7 @@
         // Replace the input tag with its value
         input.outerHTML = input.value;
       });
+      
       emailBody = emailDiv.innerText;
       emailBody = emailBody.replace(/^.*subject.*$/im, "").trim();
       emailBody = emailBody.replace(/^.*Subject.*$/im, "").trim();
