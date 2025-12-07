@@ -25,26 +25,23 @@
       --editable-focus-bg: #dbeafe;
     }
 
-  [data-theme="dark"] {
-  --pastel-blue: #1e293b;
-  --blue-100: #334155;
-  --blue-200: #475569;
-  --blue-300: #64748b;
-  --ink: #f1f5f9;
-  --ink-soft: #cbd5e1;
+    [data-theme="dark"] {
+      --pastel-blue: #1e293b;
+      --blue-100: #334155;
+      --blue-200: #475569;
+      --blue-300: #64748b;
+      --ink: #f1f5f9;
+      --ink-soft: #cbd5e1;
+      --white: #1e293b;
+      --border: #334155;
+      --shadow: 0 6px 14px rgba(0,0,0,0.4);
+    }
 
-  /* ✅ Use a proper gray background instead of black */
-  --white: #1e293b;         /* main card/background gray */
-  /* or try #1f2937 or #2d3748 depending on how dark you want */
-
-  --border: #334155;
-  --shadow: 0 6px 14px rgba(0,0,0,0.4);
-}
-.format-btn b,
-.format-btn i,
-.format-btn u {
-  font-size: 14px;
-}
+    .format-btn b,
+    .format-btn i,
+    .format-btn u {
+      font-size: 14px;
+    }
 
     * {
       box-sizing: border-box;
@@ -64,7 +61,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 14px 20px;
-       background: var(--white);
+      background: var(--white);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       position: sticky;
@@ -470,6 +467,15 @@
         <div class="grid">
           <!-- Left: tone picker -->
           <div class="tones">
+            <!-- Search bar -->
+            <input
+              id="templateSearch"
+              class="template-search"
+              type="text"
+              placeholder="Search templates..."
+              style="padding:8px 12px; border-radius:10px; border:1px solid var(--border); margin-bottom:10px;"
+            >
+
             <div class="tone active" data-tone="friendly">
               <span>Friendly</span>
               <small>check-in</small>
@@ -493,6 +499,26 @@
             <div class="tone" data-tone="thankyou">
               <span>Thank You</span>
               <small>gratitude</small>
+            </div>
+            <div class="tone" data-tone="motivational">
+              <span>Motivational</span>
+              <small>encouragement</small>
+            </div>
+            <div class="tone" data-tone="followup">
+              <span>Follow-Up</span>
+              <small>second message</small>
+            </div>
+            <div class="tone" data-tone="outreach">
+              <span>Outreach</span>
+              <small>networking</small>
+            </div>
+            <div class="tone" data-tone="delay">
+              <span>Project Delay</span>
+              <small>urgent notice</small>
+            </div>
+            <div class="tone" data-tone="celebration">
+              <span>Celebration</span>
+              <small>success 🎉</small>
             </div>
           </div>
 
@@ -529,13 +555,18 @@
               </div>
               <div class="subject-chips" id="subjectChips"></div>
             </div>
+
             <div class="format-toolbar" style="display:flex; gap:8px; margin-bottom:8px;">
-  <button class="btn-ghost btn format-btn" data-command="bold"><b>B</b></button>
-  <button class="btn-ghost btn format-btn" data-command="italic"><i>I</i></button>
-  <button class="btn-ghost btn format-btn" data-command="underline"><u>U</u></button>
-  <button class="btn-ghost btn format-btn" data-command="insertUnorderedList">• List</button>
-  <button class="btn-ghost btn format-btn" data-command="insertOrderedList">1. List</button>
-</div>
+              <button class="btn-ghost btn format-btn" data-command="bold"><b>B</b></button>
+              <button class="btn-ghost btn format-btn" data-command="italic"><i>I</i></button>
+              <button class="btn-ghost btn format-btn" data-command="underline"><u>U</u></button>
+              <button class="btn-ghost btn format-btn" data-command="insertUnorderedList">• List</button>
+              <button class="btn-ghost btn format-btn" data-command="insertOrderedList">1. List</button>
+            </div>
+
+            <button id="clarityBtn" class="btn-ghost btn" style="margin-bottom:10px; border-radius:12px;">
+              ✨ Improve Clarity
+            </button>
 
             <div id="email-body">
               <!-- body content injected by JS -->
@@ -623,6 +654,46 @@ Your support made a real difference in <span contenteditable="true" data-placeho
 Looking forward to working together again soon!<br><br>
 Best,<br>
 <span contenteditable="true" data-placeholder="[Your Name]"></span>`
+      },
+      motivational: {
+        title: "Motivational Boost",
+        body: `Hi team,<br><br>
+I wanted to send some encouragement as we work toward <span contenteditable="true" data-placeholder="[project milestone]"></span>.<br><br>
+Let’s keep up the amazing work — we’re getting closer every day!<br><br>
+Best,<br>
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+      },
+      followup: {
+        title: "Follow-Up Message",
+        body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
+I'm following up on my earlier message about <span contenteditable="true" data-placeholder="[topic]"></span>.<br><br>
+Please let me know when you get a chance!<br><br>
+Best,<br>
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+      },
+      outreach: {
+        title: "Outreach Email",
+        body: `Hello,<br><br>
+I hope you're doing well! I'm reaching out because <span contenteditable="true" data-placeholder="[reason for reaching out]"></span>.<br><br>
+Looking forward to connecting.<br><br>
+Best,<br>
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+      },
+      delay: {
+        title: "Project Delay Notice",
+        body: `Hi team,<br><br>
+I wanted to let you know that <span contenteditable="true" data-placeholder="[issue causing delay]"></span> will cause a shift in our project timeline.<br><br>
+I'll keep everyone updated with next steps.<br><br>
+Best,<br>
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+      },
+      celebration: {
+        title: "Celebration Email 🎉",
+        body: `Great job team!<br><br>
+We successfully reached <span contenteditable="true" data-placeholder="[milestone]"></span> and I’m so proud of everyone’s hard work.<br><br>
+Let’s celebrate this win! 🎉<br><br>
+Best,<br>
+<span contenteditable="true" data-placeholder="[Your Name]"></span>`
       }
     };
 
@@ -656,6 +727,31 @@ Best,<br>
         "Thank you!",
         "Appreciation for your help",
         "Grateful for your support"
+      ],
+      motivational: [
+        "You’ve got this!",
+        "Motivation for the week",
+        "Keep up the great work!"
+      ],
+      followup: [
+        "Following up on my earlier message",
+        "Second request for update",
+        "Quick follow-up"
+      ],
+      outreach: [
+        "Reaching out to connect",
+        "Quick introduction",
+        "Request to connect"
+      ],
+      delay: [
+        "Important: timeline update",
+        "Project delay notice",
+        "Schedule shift"
+      ],
+      celebration: [
+        "We did it! 🎉",
+        "Celebrating our success",
+        "Congrats on the milestone!"
       ]
     };
 
@@ -664,6 +760,19 @@ Best,<br>
     const previewToneChip = document.getElementById("previewToneChip");
     const emailBody = document.getElementById("email-body");
     const tones = document.querySelectorAll(".tone");
+    const templateSearch = document.getElementById("templateSearch");
+
+    // Search filter for tones
+    if (templateSearch) {
+      templateSearch.addEventListener("input", (e) => {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll(".tone").forEach(tone => {
+          const text = tone.innerText.toLowerCase();
+          tone.style.display = text.includes(term) ? "flex" : "none";
+        });
+      });
+    }
+
     const subjectChipsContainer = document.getElementById("subjectChips");
     const subjectField = document.getElementById("subjectField");
     const toField = document.getElementById("toField");
@@ -859,7 +968,6 @@ Best,<br>
       if (subject) lines.push("Subject: " + subject);
       if (to || subject) lines.push("");
 
-      // innerText will strip HTML tags nicely
       const bodyText = emailBody.innerText.replace(/\n{3,}/g, "\n\n");
       lines.push(bodyText);
 
@@ -867,48 +975,63 @@ Best,<br>
     }
 
     function findUnfilledPlaceholders() {
-  
-  const placeholderRegex = /\[[^\]]+\]/g;
+      const placeholderRegex = /\[[^\]]+\]/g;
+      const html = emailBody.innerHTML;
+      const matches = html.match(placeholderRegex);
+      return matches || [];
+    }
 
-  
-  const html = emailBody.innerHTML;
+    const formatButtons = document.querySelectorAll(".format-btn");
 
-  
-  const matches = html.match(placeholderRegex);
+    formatButtons.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const command = btn.dataset.command;
+        document.execCommand(command, false, null);
+        emailBody.focus();
+      });
+    });
 
-  return matches || []; 
-}
+    // -----------------------
+    // Improve Clarity
+    // -----------------------
+    function improveClarity() {
+      // Get plain text version
+      let text = emailBody.innerText;
 
-const formatButtons = document.querySelectorAll(".format-btn");
+      // Simple clarity rules
+      text = text.replace(/really\s+/gi, "");
+      text = text.replace(/very\s+/gi, "");
+      text = text.replace(/I just wanted to/gi, "I wanted to");
+      text = text.replace(/I'm reaching out because/gi, "I'm reaching out to");
+      text = text.trim();
 
-formatButtons.forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
+      // Convert back to HTML, preserving line breaks
+      const html = text.split("\n").join("<br>");
+      emailBody.innerHTML = html;
+    }
 
-    const command = btn.dataset.command;
+    document.getElementById("clarityBtn").addEventListener("click", () => {
+      improveClarity();
+    });
 
-    // Apply formatting
-    document.execCommand(command, false, null);
-
-    // Keep focus inside the email editor
-    emailBody.focus();
-  });
-});
-
+    // -----------------------
+    // Copy & Clear buttons
+    // -----------------------
     copyBtn.addEventListener("click", async () => {
-
       const unfilled = findUnfilledPlaceholders();
 
-  if (unfilled.length > 0) {
-    const list = unfilled.join(", ");
-    const proceed = confirm(
-      `⚠️ You still have unfilled placeholders:\n\n${list}\n\nCopy anyway?`
-    );
+      if (unfilled.length > 0) {
+        const list = unfilled.join(", ");
+        const proceed = confirm(
+          `⚠️ You still have unfilled placeholders:\n\n${list}\n\nCopy anyway?`
+        );
 
-    if (!proceed) {
-      return; 
-    }
-  }
+        if (!proceed) {
+          return;
+        }
+      }
+
       const text = getPlainEmailText();
       try {
         await navigator.clipboard.writeText(text);
@@ -934,7 +1057,6 @@ formatButtons.forEach(btn => {
       extraFields.classList.add("hidden");
       ccbccToggle.textContent = "+Cc/Bcc";
 
-      // reset to currently active tone template
       const activeTone = document.querySelector(".tone.active");
       const key = activeTone ? activeTone.dataset.tone : "friendly";
       setTone(key);
