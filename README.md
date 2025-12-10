@@ -31,18 +31,18 @@ git clone https://github.com/CS222-UIUC/fa25-fa25-team019-CM3.git
 Make sure to install python
 ```bash
 -pip install python
-'''
+```
 
 # Project Instructions
 Go into the backend directory of the project:
 ```bash
 cd backend
-'''
+```
 
 Then, run the following command to load the webpage and click on the link:
 ```bash
 python app.py
-'''
+```
 Follow the instructions on the website accordingly.
 
 
