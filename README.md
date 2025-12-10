@@ -1,4 +1,4 @@
-#Introduction
+#Introduction <br>
 ##The email generator
 
 This application is used to help generate emails with a style of the user's choice. Whether it be sending an email to your professor requesting an extension for that one MP, or emailing a childhood friend to catch up, this generator has got you covered:
