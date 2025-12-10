@@ -11,7 +11,7 @@ For more details, please view our project proposal [here](https://docs.google.co
 
 # Technical Architecture
  
-<img width="1434" height="1058" alt="image" src="https://github.com/user-attachments/assets/79c3031b-14a9-46f7-9323-760f9a51ea20" />
+<img width="1498" height="1050" alt="image" src="https://github.com/user-attachments/assets/6eb95fa4-2b64-45a7-84a7-116286029c48" />
 
 
 
