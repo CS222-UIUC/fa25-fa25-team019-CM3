@@ -24,14 +24,16 @@ Moukthika Nellutla: Integrating email-sending feature to mentioned recipient(s),
 
 # Environment Setup
 ## Cloning the Repository
-Navigate to your source directory, and clone the repository:
-```bash
-git clone https://github.com/CS222-UIUC/fa25-fa25-team019-CM3.git
-
-Make sure to install python
+Make sure to have python already installed on your machine :
 ```bash
 -pip install python
 ```
+
+Navigate to your source directory, and clone the repository:
+```bash
+git clone https://github.com/CS222-UIUC/fa25-fa25-team019-CM3.git
+```
+
 
 # Project Instructions
 Go into the backend directory of the project:
