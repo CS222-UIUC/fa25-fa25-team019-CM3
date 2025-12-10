@@ -7,7 +7,7 @@ This application is used to help generate emails with a style of the user's choi
 3. The user is then prompted to modify the email with the recipient's and sender's details, and then hits "send" for it to arrive to the recipient's inbox.
 
 
-For more details, please view our project proposal <href a = "">here</href>.
+For more details, please view our project proposal <href a = "https://docs.google.com/document/d/1HD8HK9ETS648CsefJGBGJE0E4yZjM3jkYPysLFYLPHQ/edit?usp=sharing">here</href>.
 
 # Technical Architecture
  *insert diagram here*
