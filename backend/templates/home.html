@@ -53,13 +53,13 @@
     textarea, select, button, input {
       width: 100%;
       margin-top: 10px;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 6px 8px;      /* smaller */
+      border-radius: 8px;
       border: 1px solid var(--border);
-      font-size: 15px;
+      font-size: 14px;       /* reduced text */
       background: var(--white);
       color: var(--ink);
-      transition: background 0.3s ease, color 0.3s ease;
+      box-sizing: border-box;
     }
 
     button {
@@ -145,6 +145,13 @@
 
     .success { color: #22c55e; font-weight: 600; }
     .error { color: #ef4444; font-weight: 600; }
+
+    #emailBody input {
+      width: auto !important;        
+      max-width: 200px;              
+      padding: 4px 6px !important;    
+      display: inline-block !important;
+    }
   </style>
 </head>
 
