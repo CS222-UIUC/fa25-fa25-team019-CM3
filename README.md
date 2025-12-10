@@ -15,10 +15,10 @@ For more details, please view our project proposal <href a = "">here</href>.
 
 
 # Developers
-Chandini Chennakesavan: Integrating the Gemini API with the email wrapper for UX.  
-Mahnoor Aetzaz: Created email templates, added text options and email recipient/sending.
-Meera Aleem:  Integrated light and dark mode for UI, saving email drafts, and .
-Moukthika Nellutla:
+Chandini Chennakesavan: Integrating the Gemini API with the email wrapper for UX.  <br>
+Mahnoor Aetzaz: Created email templates, added text options and email recipient/sending.<br>
+Meera Aleem:  Integrated light and dark mode for UI, saving email drafts, and improving upon email clarity.
+Moukthika Nellutla: Integrating email-sending feature to mentioned recipient(s), modifying email structure for UX. 
 
 
 # Environment Setup
