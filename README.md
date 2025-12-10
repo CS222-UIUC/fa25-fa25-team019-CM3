@@ -23,6 +23,10 @@ Moukthika Nellutla: Integrating email-sending feature to mentioned recipient(s),
 
 
 # Environment Setup
+## Cloning the Repository
+Navigate to your source directory, and clone the repository:
+```bash
+git clone https://github.com/CS222SP22/course-project-at-b.git
 
 
 
