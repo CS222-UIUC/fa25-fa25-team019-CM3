@@ -24,7 +24,7 @@ Moukthika Nellutla: Integrating email-sending feature to mentioned recipient(s),
 
 # Environment Setup
 ## Cloning the Repository
-Make sure to have python already installed on your machine :
+Make sure to have python already installed on your machine:
 ```bash
 -pip install python
 ```
