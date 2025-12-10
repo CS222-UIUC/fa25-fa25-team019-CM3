@@ -1,7 +1,7 @@
 # Introduction <br>
 ## The Email Generator
 
-This application is used to help generate emails with a style of the user's choice. Whether it be sending an email to your professor requesting an extension for that one MP, or emailing a childhood friend to catch up, this generator has got you covered:
+This application is used to help generate emails with a style of the user's choice. Whether it be sending an email to your professor requesting an extension for that project worth half your grade, or emailing a childhood friend to catch up, this generator has got you covered:
 1. User picks a tone (or tells our Gemini API a tone) for the email. 
 2. The Gemini API generates a personalized email for the user.
 3. The user is then prompted to modify the email with the recipient's and sender's details, and then hits "send" for it to arrive to the recipient's inbox.
