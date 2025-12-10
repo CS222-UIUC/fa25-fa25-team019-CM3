@@ -10,7 +10,7 @@ This application is used to help generate emails with a style of the user's choi
 For more details, please view our project proposal [here](https://docs.google.com/document/d/1HD8HK9ETS648CsefJGBGJE0E4yZjM3jkYPysLFYLPHQ/edit?usp=sharing).
 
 # Technical Architecture
- *insert diagram here*
+ 
 
 
 
