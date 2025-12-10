@@ -10,8 +10,8 @@ This application is used to help generate emails with a style of the user's choi
 For more details, please view our project proposal [here](https://docs.google.com/document/d/1HD8HK9ETS648CsefJGBGJE0E4yZjM3jkYPysLFYLPHQ/edit?usp=sharing).
 
 # Technical Architecture
- 
-<img width="1498" height="1050" alt="image" src="https://github.com/user-attachments/assets/6eb95fa4-2b64-45a7-84a7-116286029c48" />
+<img width="1416" height="1054" alt="image" src="https://github.com/user-attachments/assets/8bd4eeef-2e74-42a1-b98d-af73e650723d" />
+
 
 
 
