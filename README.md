@@ -1,5 +1,5 @@
-#Introduction <br>
-##The email generator
+# Introduction <br>
+## The email generator
 
 This application is used to help generate emails with a style of the user's choice. Whether it be sending an email to your professor requesting an extension for that one MP, or emailing a childhood friend to catch up, this generator has got you covered:
 1. User picks a tone (or tells our Gemini API a tone) for the email. 
@@ -9,23 +9,23 @@ This application is used to help generate emails with a style of the user's choi
 
 For more details, please view our project proposal <href a = "">here</href>.
 
-#Technical Architecture
-*insert diagram here*
+# Technical Architecture
+ *insert diagram here*
 
 
 
-#Developers
+# Developers
 Chandini Chennakesavan: Integrating the Gemini API with the email wrapper for UX.  
 Mahnoor Aetzaz: Created email templates, added text options and email recipient/sending.
 Meera Aleem:  Integrated light and dark mode for UI, saving email drafts, and .
 Moukthika Nellutla:
 
 
-#Environment Setup
+# Environment Setup
 
 
 
-#Development
+# Development
 
 
 
