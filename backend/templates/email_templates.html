@@ -26,6 +26,10 @@
       --editable-focus-bg: #dbeafe;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
     /* Dark mode */
     [data-theme="dark"] {
       --pastel-blue: #1e293b;
@@ -251,10 +255,47 @@
       gap: 10px;
     }
 
+    
+
     #email-body {
       margin-top: 6px;
       line-height: 1.55;
     }
+
+
+    /* ===== Editable Placeholder Enhancements ===== */
+
+/* Highlight empty placeholders */
+[contenteditable][data-placeholder]:empty {
+  background: var(--editable-bg);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* Show placeholder text */
+[contenteditable][data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--ink-soft);
+  font-style: italic;
+  pointer-events: none;
+}
+
+/* Focus state */
+[contenteditable][data-placeholder]:focus {
+  background: var(--editable-focus-bg);
+}
+
+/* Hide placeholder text when focused */
+[contenteditable][data-placeholder]:focus::before {
+  content: "";
+}
+
+/* Warning highlight when copying */
+.placeholder-warning {
+  background: #fee2e2 !important;
+  outline: 2px solid #f87171;
+}
+
   </style>
 </head>
 
@@ -348,8 +389,7 @@
             <button class="btn-ghost btn format-btn" data-command="bold"><b>B</b></button>
             <button class="btn-ghost btn format-btn" data-command="italic"><i>I</i></button>
             <button class="btn-ghost btn format-btn" data-command="underline"><u>U</u></button>
-            <button class="btn-ghost btn format-btn" data-command="insertUnorderedList">• List</button>
-            <button class="btn-ghost btn format-btn" data-command="insertOrderedList">1. List</button>
+          
           </div>
 
           <!-- REWRITE DROPDOWN (must appear FIRST) -->
@@ -411,14 +451,27 @@
 --------------------------------------- */
 const EXAMPLES = {
   friendly: {
-    title: "Friendly Team Check-In",
-    body: `Hi everyone,<br><br>
-I hope you're all doing well! I wanted to check in regarding <span contenteditable="true" data-placeholder="[project name]"></span> for <span contenteditable="true" data-placeholder="[class name]"></span>, due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
-I've completed <span contenteditable="true" data-placeholder="[your completed task]"></span>, and I noticed we still need to finish <span contenteditable="true" data-placeholder="[remaining tasks]"></span>.<br><br>
+  title: "Friendly Team Check-In",
+  body: `Hi everyone,<br><br>
+I hope you're all doing well! I wanted to check in regarding 
+<span contenteditable="true" data-placeholder="[project name]"></span> 
+for <span contenteditable="true" data-placeholder="[class name]"></span>, 
+due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
+
+I've completed 
+<span contenteditable="true" data-placeholder="[your completed task]"></span>, 
+and I noticed we still need to finish 
+<span contenteditable="true" data-placeholder="[remaining tasks]"></span>.<br><br>
+
 Please let me know if there's anything I can help with.<br><br>
-Sincerely,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
-  },
+Best,<br>
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+
+`
+},
+
 
   serious: {
     title: "Formal Project Reminder",
@@ -426,7 +479,9 @@ Sincerely,<br>
 This is a reminder about our submission for <span contenteditable="true" data-placeholder="[project name]"></span> in <span contenteditable="true" data-placeholder="[course name]"></span>, due on <span contenteditable="true" data-placeholder="[due date]"></span>.<br><br>
 Please ensure remaining tasks are completed by <span contenteditable="true" data-placeholder="[target date]"></span>.<br><br>
 Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>`
   },
 
   business: {
@@ -435,7 +490,10 @@ Best,<br>
 Here's a quick update on <span contenteditable="true" data-placeholder="[project name]"></span>. We completed <span contenteditable="true" data-placeholder="[milestone]"></span> and next we'll focus on <span contenteditable="true" data-placeholder="[next step]"></span>.<br><br>
 Please confirm your availability for our next check-in on <span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
 Thanks,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   },
 
   reminder: {
@@ -443,7 +501,10 @@ Thanks,<br>
     body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
 Just a quick reminder about <span contenteditable="true" data-placeholder="[event/task]"></span> happening on <span contenteditable="true" data-placeholder="[date/time]"></span>.<br><br>
 Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   },
 
   apology: {
@@ -451,7 +512,10 @@ Best,<br>
     body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
 I sincerely apologize for <span contenteditable="true" data-placeholder="[issue]"></span>. I appreciate your patience and will ensure <span contenteditable="true" data-placeholder="[corrective action]"></span> moving forward.<br><br>
 Thank you,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   },
 
   thankyou: {
@@ -459,7 +523,10 @@ Thank you,<br>
     body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
 Thank you so much for <span contenteditable="true" data-placeholder="[specific help]"></span>. Your support made a huge difference.<br><br>
 Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   },
 
   motivational: {
@@ -467,7 +534,10 @@ Best,<br>
     body: `Hi team,<br><br>
 Just wanted to send some encouragement as we push toward <span contenteditable="true" data-placeholder="[milestone]"></span>.<br><br>
 We've got this!<br><br>
-— <span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   },
 
   followup: {
@@ -475,7 +545,10 @@ We've got this!<br><br>
     body: `Hi <span contenteditable="true" data-placeholder="[Name]"></span>,<br><br>
 I'm following up on <span contenteditable="true" data-placeholder="[topic]"></span>. Let me know when you get a chance!<br><br>
 Thanks,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   },
 
   outreach: {
@@ -483,7 +556,10 @@ Thanks,<br>
     body: `Hello,<br><br>
 I'm reaching out because <span contenteditable="true" data-placeholder="[reason]"></span>.<br><br>
 Best,<br>
-<span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   },
 
   delay: {
@@ -491,7 +567,10 @@ Best,<br>
     body: `Hi team,<br><br>
 Due to <span contenteditable="true" data-placeholder="[delay reason]"></span>, our project timeline will shift.<br><br>
 I'll send updates soon.<br><br>
-— <span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   },
 
   celebration: {
@@ -499,7 +578,10 @@ I'll send updates soon.<br><br>
     body: `Great work team!<br><br>
 We successfully reached <span contenteditable="true" data-placeholder="[milestone]"></span> and I’m proud of everyone.<br><br>
 Celebrate this win! 🎉<br><br>
-— <span contenteditable="true" data-placeholder="[Your Name]"></span>`
+<div contenteditable="true"
+     data-placeholder="[Your Name]"
+     style="min-height:1.2em; display:inline-block;"></div>
+`
   }
 };
 
@@ -598,13 +680,63 @@ function setTone(key) {
 
   tones.forEach(t => t.classList.toggle("active", t.dataset.tone === key));
   renderSubjectChips(key);
+
+  initEditablePlaceholders();
+  enablePlaceholderTabbing();
 }
+
 
 tones.forEach(tone =>
   tone.addEventListener("click", () => setTone(tone.dataset.tone))
 );
 
 setTone("friendly");
+
+function initEditablePlaceholders() {
+  emailBody.querySelectorAll('[contenteditable][data-placeholder]').forEach(el => {
+    el.addEventListener('focus', () => {
+      if (el.textContent.trim() === "") el.innerHTML = "";
+    });
+
+    el.addEventListener('blur', () => {
+      if (el.textContent.trim() === "") el.innerHTML = "";
+    });
+  });
+}
+
+function enablePlaceholderTabbing() {
+  const placeholders = Array.from(
+    emailBody.querySelectorAll('[contenteditable][data-placeholder]')
+  );
+
+  placeholders.forEach((el, index) => {
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        e.preventDefault();
+
+        const dir = e.shiftKey ? -1 : 1;
+        const next = placeholders[index + dir];
+
+        if (next) {
+          next.focus();
+          const range = document.createRange();
+          const sel = window.getSelection();
+          range.selectNodeContents(next);
+          range.collapse(false);
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      }
+    });
+  });
+}
+
+function getUnfilledPlaceholders() {
+  return Array.from(
+    emailBody.querySelectorAll('[contenteditable][data-placeholder]')
+  ).filter(el => el.textContent.trim() === "");
+}
+
 
 /* ---------------------------------------
    SEARCH BAR — FILTER TEMPLATES
@@ -634,7 +766,10 @@ ccbccToggle.addEventListener("click", () => {
 document.querySelectorAll(".format-btn").forEach(btn => {
   btn.addEventListener("click", e => {
     e.preventDefault();
-    document.execCommand(btn.dataset.command, false, null);
+
+    const cmd = btn.dataset.command;
+
+    document.execCommand(cmd, false, null);
     emailBody.focus();
   });
 });
@@ -677,6 +812,9 @@ document.getElementById("rewriteBtn").addEventListener("click", async () => {
   const data = await response.json();
   if (data.rewritten) {
     emailBody.innerHTML = data.rewritten;
+    initEditablePlaceholders();
+    enablePlaceholderTabbing();
+
   } else {
     alert("Rewrite failed.");
   }
@@ -757,18 +895,6 @@ function getPlainText() {
   return lines.join("\n");
 }
 
-copyBtn.addEventListener("click", async () => {
-  const text = getPlainText();
-  await navigator.clipboard.writeText(text);
-
-  copyBtn.textContent = "Copied!";
-  copyBtn.style.background = "#16a34a";
-
-  setTimeout(() => {
-    copyBtn.textContent = "Copy Email";
-    copyBtn.style.background = "#2563eb";
-  }, 1500);
-});
 
 /* ---------------------------------------
    CLEAR FIELDS
