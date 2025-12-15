@@ -255,6 +255,39 @@
       margin-top: 6px;
       line-height: 1.55;
     }
+    /* ===== Editable Placeholder Enhancements ===== */
+
+/* Highlight empty placeholders */
+[contenteditable][data-placeholder]:empty {
+  background: var(--editable-bg);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* Show placeholder text */
+[contenteditable][data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--ink-soft);
+  font-style: italic;
+  pointer-events: none;
+}
+
+/* Focus state */
+[contenteditable][data-placeholder]:focus {
+  background: var(--editable-focus-bg);
+}
+
+/* Hide placeholder text when focused */
+[contenteditable][data-placeholder]:focus::before {
+  content: "";
+}
+
+/* Warning highlight when copying */
+.placeholder-warning {
+  background: #fee2e2 !important;
+  outline: 2px solid #f87171;
+}
+
   </style>
 </head>
 
@@ -598,13 +631,68 @@ function setTone(key) {
 
   tones.forEach(t => t.classList.toggle("active", t.dataset.tone === key));
   renderSubjectChips(key);
-}
+
+  initEditablePlaceholders();
+  enablePlaceholderTabbing();
+  }
+
 
 tones.forEach(tone =>
   tone.addEventListener("click", () => setTone(tone.dataset.tone))
 );
 
 setTone("friendly");
+
+function initEditablePlaceholders() {
+  emailBody.querySelectorAll('[contenteditable][data-placeholder]').forEach(el => {
+    el.addEventListener('focus', () => {
+      if (el.textContent.trim() === "") {
+        el.innerHTML = "";
+      }
+    });
+
+    el.addEventListener('blur', () => {
+      if (el.textContent.trim() === "") {
+        el.innerHTML = "";
+      }
+    });
+  });
+  function enablePlaceholderTabbing() {
+  const placeholders = Array.from(
+    emailBody.querySelectorAll('[contenteditable][data-placeholder]')
+  );
+
+  placeholders.forEach((el, index) => {
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        e.preventDefault();
+
+        const dir = e.shiftKey ? -1 : 1;
+        const next = placeholders[index + dir];
+
+        if (next) {
+          next.focus();
+
+          const range = document.createRange();
+          const sel = window.getSelection();
+          range.selectNodeContents(next);
+          range.collapse(false);
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      }
+    });
+  });
+  function getUnfilledPlaceholders() {
+  return Array.from(
+    emailBody.querySelectorAll('[contenteditable][data-placeholder]')
+  ).filter(el => el.textContent.trim() === "");
+}
+
+}
+
+}
+
 
 /* ---------------------------------------
    SEARCH BAR — FILTER TEMPLATES
@@ -758,17 +846,31 @@ function getPlainText() {
 }
 
 copyBtn.addEventListener("click", async () => {
+  const missing = getUnfilledPlaceholders();
+
+  if (missing.length > 0) {
+    missing.forEach(el => el.classList.add("placeholder-warning"));
+
+    alert(
+      `You still have ${missing.length} unfilled placeholder(s).\n` +
+      `Please fill them in before copying.`
+    );
+
+    setTimeout(() => {
+      missing.forEach(el => el.classList.remove("placeholder-warning"));
+    }, 2000);
+
+    missing[0].focus();
+    return;
+  }
+
   const text = getPlainText();
   await navigator.clipboard.writeText(text);
 
   copyBtn.textContent = "Copied!";
-  copyBtn.style.background = "#16a34a";
-
-  setTimeout(() => {
-    copyBtn.textContent = "Copy Email";
-    copyBtn.style.background = "#2563eb";
-  }, 1500);
+  setTimeout(() => (copyBtn.textContent = "Copy Email"), 1500);
 });
+
 
 /* ---------------------------------------
    CLEAR FIELDS
