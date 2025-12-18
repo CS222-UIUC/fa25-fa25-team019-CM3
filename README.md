@@ -47,7 +47,8 @@ python app.py
 ```
 Follow the instructions on the website accordingly.
 
-
+# AI Usage Disclosure
+AI was invloved in the brainstorming of the project, explaining new concepts and occasionally generating code.
 
 
 
